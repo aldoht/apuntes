@@ -1,0 +1,200 @@
+{
+  "main": {
+    "id": "53ee0e9eb48d2a12",
+    "type": "split",
+    "children": [
+      {
+        "id": "33ba374c87067651",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c606d31ab33736f4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "IoT/Programación IoT Teo 1  Lunes 1310 - 1520.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Programación IoT Teo 1  Lunes 1310 - 1520"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "125c37077b7cc16e",
+    "type": "split",
+    "children": [
+      {
+        "id": "c3d2f6be71be41ea",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e86b8ac6e4727d52",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "0e1cb3d4e7d2e94e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "fb966bd5fc32731a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 264.5,
+    "collapsed": true
+  },
+  "right": {
+    "id": "a3930dc0a11af502",
+    "type": "split",
+    "children": [
+      {
+        "id": "2eb992404ab9af8e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0962fe0fe37515d4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810"
+            }
+          },
+          {
+            "id": "a2c5e9d662d75091",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810"
+            }
+          },
+          {
+            "id": "67d941a7f1286730",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "3e3a313e0bb7f1be",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "audio-recorder:Start/stop recording": false,
+      "simple-sketch:Simple Sketch": false
+    }
+  },
+  "active": "c606d31ab33736f4",
+  "lastOpenFiles": [
+    "IoT/Tarea1/Tarea1.ino~",
+    "IoT/Tarea1/Tarea1.ino",
+    "IoT/Tarea1",
+    "IoT/Actividad3/Actividad3.ino~",
+    "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
+    "IoT/puenteH.jpg",
+    "IoT/Programación IoT Teo 1  Lunes 1310 - 1520.md",
+    "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
+    "Untitled.md",
+    "Recording 20250822135002.m4a",
+    "Recording 20250822134958.m4a",
+    "SistInteligentes/Sistemas Inteligentes Teo 1 Viernes 1310 1520.md",
+    "AnalisisDatos",
+    "SistInteligentes/simple_sketch-8-22-2025_12-55-06_PM.jpg",
+    "SistInteligentes/simple_sketch-8-22-2025_12-05-16_PM.jpg",
+    "SistInteligentes",
+    "Recording 20250820092316.m4a",
+    "Recording 20250820092154.m4a",
+    "El.md",
+    "AudCiberseguridad/Control de Lectura 1 Unidad 1 - Aldo Hernández.pdf",
+    "home/firelink/Documents/Apuntes/AudCiberseguridad/Control.md",
+    "Untitled 1.md"
+  ]
+}
