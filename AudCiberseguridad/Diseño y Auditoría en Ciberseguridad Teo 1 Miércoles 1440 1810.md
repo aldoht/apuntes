@@ -137,3 +137,28 @@ Clave compartida (pre-share) -> Es como darle la contraseña de tu wifi a alguie
 RSA -> Al levantar una página, ya está encriptada, protegiendo la información al ser transmitida.
 
 Un humano siempre debe verificar el correcto funcionamiento de un sistema.
+
+## 2025-08-27
+Vocabulario -> ISO 27000.
+Si una empresa elige ISO 27001 debe tener obligatoriamente control de acceso.
+El gestión del riesgo (27005) también es obligatorio.
+Auditoría -> Evaluación por un tercero del correcto cumplimiento de las normas.
+
+3. Encuentre la definición de Control de Acceso y cuál es al capítulo que trata el tema en la ISO 27001 2023 y dónde se encontraría el control descrito en la ISO 27002-2022.
+	1. Describa los requerimientos específicos para esa materia según la norma ISO 27002
+4. ¿En cuál Capítulo se obliga a revisar en forma periódica los permisos de acceso?, ¿Cómo?
+
+Según la ISO 27000, los controles de acceso son "medios para garantizar que el acceso a los activos esté autorizado y restringido según los requisitos comerciales y de seguridad", este tema se trata de cierta forma en el capítulo 7 de la ISO 27001:2023, concretamente en el subcapítulo 7.5.3 ya que habla sobre el control de la información documentada. El control se encuentra descrito en el capítulo 5.15 de la ISO 27002:2022. Este control requiere establecer e implementar reglas de control de acceso físico y lógico a la información y otros activos asociados a fin de garantizar el acceso autorizado y evitar el acceso no autorizado a la información y a otros activos asociados; además, se debe definir una política específica de control de acceso que tengan en consideración lo siguiente:
+- qué tipo de acceso a la información y otros activos asociados requiere cada entidad;
+- la seguridad de las aplicaciones;
+- el acceso físico;
+- la diseminación y autorización de la información y los niveles de seguridad y de clasificación de la información;
+- la segregación de funciones;
+- la legislación y normativas aplicables;
+- la segregación de funciones en el control de acceso;
+- la autorización formal de las peticiones de acceso;
+- la gestión de los derechos de acceso;
+- el registro.
+De forma general se usan principalmente dos principios en este contexto: "algo que sabes" (acceso a información necesaria a la entidad para realizar sus tareas) y "algo que necesitas" (sólo se asigna a una entidad el acceso en casos de una necesidad clara). A su vez, se debe considerar el establecimiento de reglas basadas en la premisa del menor privilegio: "todo está prohibido a menos que se permita expresamente".
+
+En el capítulo 5.18 (Derechos de acceso) de la ISO 27002:2022 se obliga a revisar en forma periódica los derechos de acceso a la información y otros activos asociados conforme a la política específica de la organización y las reglas sobre control de acceso para garantizar que el acceso a la información y a otros activos asociados es definido y autorizado de acuerdo a los requisitos del negocio. Se sugiere tener en consideración los derechos de acceso de los usuarios después de cualquier cambio dentro de la organización o finalización de empleo y las autorizaciones de derechos de acceso privilegiados.

@@ -35,3 +35,57 @@ El **CRISP-DM** es una metodología usada para guiar el proceso de análisis y m
 7. Toma de Decisiones
 
 Leer **Storytelling with Data**.
+
+## 2025-08-29
+**Criterio propio** acompañado de herramientas estadísticas. Visión atemperada como expertos.
+Los gráficos deben ser sencillos de entender.
+
+#### Combinación de conjuntos de datos de dos o más archivos distintos
+Merge (Unión completa) -> FULL OUTER JOIN (SQL)
+Join interno -> INNER JOIN (SQL)
+Join externo -> LEFT OUTER JOIN, RIGHT OUTER JOIN, FULL OUTER JOIN (SQL)
+
+Tradeoff: ¿Qué tanto problema es tener datos nulos al hacer una unión?
+
+#### Selección de subconjuntos de datos
+¿Cómo filtraré los datos? -> Muestras
+Ventajas de usar subconjuntos:
+- Reducción de complejidad (menos datos)
+- Enfoque específico (sin datos irrelevantos)
+- Mayor interpretabilidad (contexto definido)
+
+#### Creación, eliminación y transformación de variables
+Variables nuevas más valiosas que cualquier columna (i.e. KDA)
+Estandarización: Los datos tendrán una media de 0 y desviación estándar de 1, útil cuando las variables tienen distintas unidades y se desean comparar -> Ley de los grandes números
+Siempre hay que considerar la *temporalidad* de los datos para tener decisiones más precisas.
+
+Dato mata relato (es cine).
+
+## 2025-09-05
+
+#### Valores nulos
+Examen sin nombre, el profesor tiene 3 opciones:
+- Eliminarlo y perder la información
+- Asignar un nombre al azar
+- *Imputar* el dato buscando el nombre en base a pistas (como el tipo de letra)
+
+#### Francis Galton
+Se le recuerda especialmente por dos aportes claves en el análisis de datos:
+- La regresión a la media
+- El diagrama de Galton o gráfico de dispersión
+##### Regresión a la media
+Observó que cuando se mide (por ejemplo) la altura, los hijos tienden a estar más cerca del promedio de la población que los padres extremos -> Los hijos serán altos pero no tan altos como los padres
+##### Outliers
+Observó que algunos individuos tenían características que se **desviaban significativamente de la media** -> *datos atípicos*.
+Las observaciones pueden deberse a:
+- Errores de medición
+- Condiciones experimentales inusuales
+- Representar fenómenos raros pero significativos
+###### Tratamiento
+Nota: Solo hacer 1 vez el ajuste de outliers a la media, si siguen habiendo outliers vives con ello
+##### Boxplots
+Este gráfico es muy común para identificar outliers, muestra la distribución de los datos basándose en cuartiles y destaca explícitamente
+
+OneHotEncoding -> Problema de la dimensionalidad (relacionar con curse of dimensionality)
+
+Nota: revisar cursos aula virtual
