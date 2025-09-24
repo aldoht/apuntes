@@ -1,0 +1,62 @@
+\documentclass{article}
+\newcommand{\templatepath}{../../LaTeX/ubo-template/}
+\usepackage{\templatepath ubo}
+\usepackage[spanish]{babel}
+\usepackage{tocloft}
+\setlength{\cftbeforesecskip}{0.5em}
+\setlength{\cftbeforesubsecskip}{0.2em}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\itshape}
+\renewcommand{\cftdot}{·}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue,
+	citecolor=black,
+	bookmarks=true,
+	bookmarksopen=true,
+	bookmarksnumbered=true,
+	pdftitle={Limpieza del dataset Spotify 2023 mediante un pipeline},
+	pdfauthor={Aldo Hernández}
+}
+
+\begin{document}
+	% Portada
+	\MakeHeader{Análisis de Datos}{Grupo: TEO 1}{Profesor Eliecer Peña Ancavil}{Limpieza del dataset \textit{Spotify 2023} mediante un \textit{pipeline}}{14 de septiembre de 2025}
+	\vfill
+	\AuthorRowOne{\CustomAuthor{Aldo Hernández}{haldo@pregrado.ubo.cl}{Universidad Autónoma de Nuevo León}{San Nicolás de los Garza, Nuevo León, MX}}
+	\newpage
+	
+	% Índice
+	\tableofcontents
+	\listoffigures
+	\listoftables
+	\thispagestyle{empty}
+	\newpage
+	
+	% Contenido
+	\section{Resumen}
+	
+	\section{Introducción}
+	\subsection{Descripción del problema}
+	\subsection{Objetivos}
+	
+	\section{Metodología}
+	\subsection{Descripción del \textit{dataset}}
+	\subsection{Herramientas utilizadas}
+	
+	\section{Análisis de Datos}
+	
+	\section{Discusión}
+	\subsection{Interpretación de resultados}
+	\subsection{Limitaciones}
+	\subsection{Posibles mejoras}
+	
+	\section{Conclusiones}
+	
+	\section{Bibliografía}
+	% Agregar bibliografía
+\end{document}
