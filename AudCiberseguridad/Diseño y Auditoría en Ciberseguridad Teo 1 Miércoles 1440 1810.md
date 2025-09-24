@@ -1,6 +1,7 @@
 # Diseño y Auditoría en Ciberseguridad [Teo 1 - Miércoles 14:40 - 18:10]
 
 ## Notas adicionales
+
 3 evaluaciones, en octubre se acaba la materia (#miedo), control de lectura (?) todas las semanas
 Hay convenios con Amazon, RedHat y Cisco
 Hacer certificaciones (revisar linkedin)
@@ -8,6 +9,7 @@ Nos van a inscribir en el primer curso de Amazon con correo universitario, si qu
 Revisar PearsonVue
 Revisar cursos AWS, Microsoft, Azure, Nvidia, IBM para Data/ML/IA
 ## 2025-08-13
+
 Dato personal -> Cualquier información para identificarte
 Dato sensible -> Información sobre ti: género, ideología, bancaria, etc.
 
@@ -21,6 +23,7 @@ Diplomados 27017
 ### Tarea 1
 
 #### UNE-ISO / IEC 27001; mayo 2023
+
 La ISO (Organización Internacional de Normalización) es una federación mundial de organismos nacionales de normalización.
 
 Este documento proporciona los requisitos para establecer, implementar, mantener y mejorar continuamente un sistema de gestión de la seguridad de la información. La adopción de este tipo de sistemas es una decisión estratégica para una organización, este sistema preserva la confidencialidad, integridad y disponibilidad de la información mediante un proceso de gestión de riesgos.
@@ -139,6 +142,7 @@ RSA -> Al levantar una página, ya está encriptada, protegiendo la información
 Un humano siempre debe verificar el correcto funcionamiento de un sistema.
 
 ## 2025-08-27
+
 Vocabulario -> ISO 27000.
 Si una empresa elige ISO 27001 debe tener obligatoriamente control de acceso.
 El gestión del riesgo (27005) también es obligatorio.
@@ -164,6 +168,7 @@ De forma general se usan principalmente dos principios en este contexto: "algo q
 En el capítulo 5.18 (Derechos de acceso) de la ISO 27002:2022 se obliga a revisar en forma periódica los derechos de acceso a la información y otros activos asociados conforme a la política específica de la organización y las reglas sobre control de acceso para garantizar que el acceso a la información y a otros activos asociados es definido y autorizado de acuerdo a los requisitos del negocio. Se sugiere tener en consideración los derechos de acceso de los usuarios después de cualquier cambio dentro de la organización o finalización de empleo y las autorizaciones de derechos de acceso privilegiados.
 
 ## 2025-09-10
+
 El alcance de un SGSI define a qué me comprometo con el cliente/empresa. Tiene continuidad pero tiene que tratarse como proyecto con fecha definida para cobrarse. Un buen SGSI para una buena vida sexual activa (es cine, de nuevo). Hay que definir los **riesgos**.
 
 Hay que revisar la Ley de Protección de Vida Privada (y de Datos Personales).
@@ -212,3 +217,23 @@ Algunos tipos de vulnerabilidades:
 	- Por ejemplo, un error recién descubierto en un navegador es usado antes de que exista una solución.
 
 Hacer apuntes con ppt, clasificación de riesgos.
+
+## 2025-09-24
+
+Ley Marco de Ciberseguridad 21663
+Ley de Delitos Económicos 21459
+Ley de Protección de Datos Personales 21718
+Ley de Finalidad de Tratamiento de Datos Personales 20575
+
+Si es un activo es porque tiene valor.
+No somos dueños de nuestros datos, tenemos tutela de ellos; porque si fuéramos dueños podríamos venderlos (vender nuestra identidad a otra persona), no podemos separar a la persona de sus datos.
+
+Política -> qué, a qué se compromete la empresa
+Procedimiento -> quién y cómo
+Registro -> control (iso 27002, el qué control aplicar en el iso 27001)
+
+La información solo se puede procesar, almacenar y transmitir.
+
+Tarea (?)
+¿En qué punto del 27002 está el control de acceso?
+Ir al 27001 en el anexo A y revisar dónde está.
