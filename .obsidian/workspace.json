@@ -11,10 +11,14 @@
             "id": "501e2fc8e818fdab",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810"
             }
           }
         ]
@@ -74,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.5,
-    "collapsed": true
+    "width": 264.5
   },
   "right": {
     "id": "a3930dc0a11af502",
