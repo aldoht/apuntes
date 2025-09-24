@@ -162,3 +162,53 @@ Según la ISO 27000, los controles de acceso son "medios para garantizar que el 
 De forma general se usan principalmente dos principios en este contexto: "algo que sabes" (acceso a información necesaria a la entidad para realizar sus tareas) y "algo que necesitas" (sólo se asigna a una entidad el acceso en casos de una necesidad clara). A su vez, se debe considerar el establecimiento de reglas basadas en la premisa del menor privilegio: "todo está prohibido a menos que se permita expresamente".
 
 En el capítulo 5.18 (Derechos de acceso) de la ISO 27002:2022 se obliga a revisar en forma periódica los derechos de acceso a la información y otros activos asociados conforme a la política específica de la organización y las reglas sobre control de acceso para garantizar que el acceso a la información y a otros activos asociados es definido y autorizado de acuerdo a los requisitos del negocio. Se sugiere tener en consideración los derechos de acceso de los usuarios después de cualquier cambio dentro de la organización o finalización de empleo y las autorizaciones de derechos de acceso privilegiados.
+
+## 2025-09-10
+El alcance de un SGSI define a qué me comprometo con el cliente/empresa. Tiene continuidad pero tiene que tratarse como proyecto con fecha definida para cobrarse. Un buen SGSI para una buena vida sexual activa (es cine, de nuevo). Hay que definir los **riesgos**.
+
+Hay que revisar la Ley de Protección de Vida Privada (y de Datos Personales).
+
+Definir un problema es la mitad de la solución.
+
+1. Identificación de los activos de información
+	- Tiene que ser definida porque ???
+	- La información es intangible y sin embargo tiene valor.
+	- Sin obtener su valor no puedo justificar cuánto voy a gastar en protegerlo.
+	- ¿Cuál es el activo de información mas importante para ti?
+		- Recurso con información que la organización valora y por tanto debe proteger.
+		- Para ser activo tiene que cumplir tres requisitos:
+			- Nombre
+			- Dueño
+			- Valor monetario
+	- Identificar vulnerabilidades y amenazas
+
+Algunos tipos de vulnerabilidades:
+- Command Injection
+	- Permite a un atacante ejecutar comandos de sistema arbitrarios en un servidor, usualmente inyectando datos de entrada maliciosos en una aplicación vulnerable que lo pasa a la terminal del sistema.
+	- Por ejemplo usar `; rm -rf /` como entrada de dato en un formulario que es ejecutado en la terminal del backend.
+- Backdoor
+	- Un método o mecanismo escondido de forma intencional o no intencional en un software que permite acceso no autorizado.
+	- Por ejemplo una contraseña secreta de administrador hardcodeada en la aplicación para testing que nunca fue eliminada.
+- Remote Code Execution
+	- Permite a un atacante ejecutar código en un sistema remoto.
+	- Por ejemplo enviar un *input* a un servidor web que ocasiona que ejecute código en Python.
+- Use After Free
+	- Un error de corrupción de memoria que ocurre cuando un programa sigue usando memoria después de liberarla, esto ocasiona crasheos o ejecución de código malicioso.
+	- Por ejemplo, un exploit de navegador que intercepta memoria liberada para ejecutar JavaScript de forma arbitraria.
+- Authentication Bypass
+	- Ocurre cuando un atacante consigue acceso a un sistema o recurso sin las debidas credenciales, generalmente por fallas en la lógica del login o manejo de sesiones.
+	- Por ejemplo, saltar el login modificando una URL o usando un token débil de sesión.
+- Information Disclosure
+	- Filtra información sensible como contraseñas, IPs internas, código fuente o detalles del sistema que podría ayudar en ataques futuros.
+	- Por ejemplo, un error en el servidor que revele rutas de archivos o variables de entorno mediante una página.
+- Arbitrary File Read
+	- Permite a los atacantes leer archivos en el servidor que no deberían ser accesibles, usualmente debido a vulnerabilidades de saltos de directorio.
+	- Por ejemplo, hacer una request a `/../../etc/passwd` para leer un archivo de contraseñas en Linux.
+- Path Traversal
+	- Permite a un atacante acceder a archivos y directorios que están fuera de la estructura de directorios intencionada de una apliación web.
+	- Por ejemplo, el atacante manipula una entrada de directorio (como un parámetro de URL) usando caracteres especiales como `../` que le dicen al sistema ir al directorio anterior.
+- Zero-Day Exploit
+	- Una vulnerabilidad que no es conocida por el proveedor y no tiene parche. Una vez que es descubierta por atacantes puede ser usada inmediatamente sin ninguna defensa.
+	- Por ejemplo, un error recién descubierto en un navegador es usado antes de que exista una solución.
+
+Hacer apuntes con ppt, clasificación de riesgos.
