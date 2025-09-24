@@ -298,3 +298,244 @@ Donde la métrica de división es la disminución de la varianza tras separar el
 El SVM es un algoritmo que busca los mejores planos (superplanos óptimos) para hacer la mejor clasificación. Se busca la **mejor recta** que separe los grupos.
 
 El *truco de Kernel* amplia los conjuntos de datos con una nueva dimensión que sí permite un hiperplano claro, una recta.
+
+## 2025-09-10 (Recuperado del 5 de sept)
+El Aprendizaje No Supervisado **no recibe etiquetas** de los datos, su objetivo principal es *descubrir una estructura oculta o patrones* en los datos de entrada.
+- Se tiene un conjunto de datos $D=\{x_1, x_2, ..., x_n\}, x_i \in \mathbb{R}^p$ 
+- No existen etiquetas $y$ asociadas.
+- El algoritmo busca encontrar:
+	- Agrupamientos (clustering)
+		- Particiones de los datos en subconjuntos
+	- Representaciones compactas
+		- Reduccion de dimensionalidad
+	- Patrones inusuales
+		- Deteccion de anomalias
+	- Reglas de asociación
+		- Descubrir relaciones entre elementos en conjuntos de datos
+#### Clustering
+El clustering busca agrupar instancias similares en subconjuntos llamados clusters. Los objetos dentro de un mismo cluster deben ser similares entre sí y los objetos en clusters distintos deben ser lo más diferentes posible.
+Dado un conjunto de datos $D=\{x_1, x_2, ..., x_n\}, x_i \in \mathbb{R}^p$ se busca una partición $C=\{C_1, C_2, ..., C_k\}$ donde:
+- $C_i\subset D$
+- $C_i \cap C_j = \emptyset$ si $i \neq j$
+- $\bigcup_{i=1}^k{C_i}=D$
+
+| Ventajas                                       | Desventajas                                   |
+| ---------------------------------------------- | --------------------------------------------- |
+| No requiere etiquetas                          | Resultados dificiles de interpretar           |
+| Permite explorar datos sin conocimiento previo | Difícil evaluar la calidad                    |
+| Descubre patrones inesperados                  | Generación de clusters artificiales no útiles |
+De forma intuitiva, las instancias parecidas se agrupan; se usa una medida de similitud o **distancia**, típicamente:
+- Distancia euclidiana
+	- $d(x_i, x_j) = \sqrt{\sum_{m=1}^{p}{(x_{im}-x_{jm})^2}}$
+- Distancia Manhattan
+	- $d(x_i, x_j) = \sum_{m=1}^{p}{|x_{im}-x_{jm}|}$
+- Coseno, correlación, etc.
+##### Tipos de clustering
+- Clustering particional
+	- Divide los datos en $k$ clusters;
+	- Cada punto pertenece a un cluster.
+- Clustering jerárquico
+	- Construye un árbol (dendrograma);
+	- Puede ser aglomerativo (bottom-up) o divisivo (top-down).
+	- El dendrograma permite "cortar" a distintas alturas para obtener diferentes números de clusters, lo que lo hace muy flexible.
+- Clustering basado en densidad
+	- Detecta clusters de forma arbitraria
+	- Útil cuando los clusters no son esféricos o contienen ruido.
+##### K-means
+Es un algoritmo de clustering particional que busca dividir un conjunto de datos en $k$ grupos, minimizando la distancia entre los puntos y el centroide (media de los puntos asignados) de su cluster.
+
+| Ventajas                               | Limitaciones                                                                         |
+| -------------------------------------- | ------------------------------------------------------------------------------------ |
+| Fácil de implementar                   | Se debe definir $k$                                                                  |
+| Eficiente en datasets grandes          | Sensible a la inicialización (solución variable)                                     |
+| Funciona bien con alta dimensionalidad | Supone clusters convexos y de tamaño similar (puede fallar en estructuras complejas) |
+| Interpretabilidad                      | Sensible a outliers (pueden mover el centroide)                                      |
+###### Algoritmo
+1. Se eligen aleatoriamente $k$ centroides iniciales;
+2. Cada punto se asigna al cluster cuyo centroide este mas cercano;
+3. Se recalculan los centroides como la media de los puntos asignados;
+4. Repetir pasos 2 y 3 hasta que los centroides no cambien significativamente (convergencia).
+###### Objetivo
+Minimizar la Suma de Errores Cuadraticos (SSE) o inercia:
+$$
+J = \sum_{i=1}^k{\sum_{\forall{x_i \in C_k}}{{||x_i - \mu_i||}^2}} 
+$$
+###### Observaciones
+- Se le dificultan patrones con formas irregulares debido a su limitación esférica.
+- Con un valor incorrecto de $k$ se crean clusters innecesarios y erróneos.
+
+##### DBSCAN
+Es un algoritmo basado en **densidad**.
+- Agrupa puntos cercanos entre sí en regiones densas;
+- Puntos aislados (de baja densidad) son considerados ruido o **anomalías**;
+- No requiere especificar $k$ ya que se determina automáticamente según los parámetros.
+- Cluster -> Región del espacio donde los puntos son densos;
+- Las regiones de baja densidad separan diferentes clusters;
+- Permite encontrar clusters de formas arbitrarias (no se casa con los centroides).
+###### Parámetros principales:
+- $\epsilon$ representa el radio maximo de vecindad para cada punto;
+- $MinPts$ es el numero minimo de puntos en la vecindad para considerarla densa.
+###### Tipos de puntos
+- Core point
+	- Tiene al menos $MinPts$ dentro de su radio $\epsilon$.
+- Border point
+	- Tiene menos de $MinPts$ vecinos pero esta dentro del radio $\epsilon$ de un core point.
+- Noise point (outlier)
+	- No es core ni border, se considera ruido.
+###### Algoritmo
+1. Para cada punto $x$, calcula su vecindad $N_\epsilon(x) = \{y \in D | d(x,y) \leq \epsilon \}$
+2. Si $|N_\epsilon(x)| \geq MinPts$, marcar $x$ como core point y expandir un cluster.
+3. Si un punto es alcanzable desde un core point, se asigna al mismo cluster.
+	- Si existe una secuencia de core points $p_1, p_2, ..., p_k$ y cada uno dentro de la vecindad de $\epsilon$ del siguiente, entonces son alcanzables entre si.
+4. Puntos no alcanzables por ningún core -> ruido.
+###### Ventajas y desventajas
+
+| Ventajas                                                      | Limitaciones                                                  |
+| ------------------------------------------------------------- | ------------------------------------------------------------- |
+| No requiere $k$                                               | Sensible a la elección de los parámetros                      |
+| Detecta clusters de forma arbitraria (no necesita convexidad) | Puede fallar si los clusters tienen densidades muy diferentes |
+| Identifica ruido y outliers                                   | No escala bien en datasets de muy alta dimensión              |
+| Robusto frente a clusters de distinto tamaño y densidad       |                                                               |
+###### Observaciones
+- Con menor valor $\epsilon$ hay mas valores ruido porque se requiere que los datos esten mas concentrados (e incluso puede crear nuevos clusters muy pequeños), pero si lo aumentamos puede agrupar datos de diferentes clusters y hay menos puntos ruidos.
+- Funciona muy bien con patrones con formas irregulares debido a que no tiene una limitación de convexidad.
+
+#### Métricas de evaluación
+Significa poder comparar la eficiencia del modelo de forma cuantitativa.
+##### Para clasificación
+###### Matriz de confusión
+
+| **Matriz de confusión** | Predicción Positiva | Predicción Negativa |
+| ----------------------- | ------------------- | ------------------- |
+| Clase Real Positiva     | Real Positivo       | Falso Negativo      |
+| Clase Real Negativa     | Falso Positivo      | Real Negativo       |
+Nota: La dimensión de la matriz depende del número de clases (nxn).
+###### Accuracy
+$$
+Accuracy = \frac{\text{True Positives} + \text{True Negatives}}{\text{All Samples}}
+$$
+No dice en qué clase es mejor y en cuál mejor, por eso es bueno para tener una visión rápida del desempeño del modelo. No se puede saber por qué exactamente dió ese valor, por eso se junta con otras métricas.
+
+| Ventajas                                                | Desventajas                      |
+| ------------------------------------------------------- | -------------------------------- |
+| Útil cuando las clases están balanceadas                | No informa rendimiento por clase |
+| Útil cuando no hay una asimetría crítica en los errores |                                  |
+
+###### Precision - ¿Qué tan confiable es un positivo?
+Mide la proporcion de verdaderos positivos entre todos los ejemplos que el modelo clasificó como positivos.
+Te mueves hacia abajo en la matriz de confusión.
+De todos los sí, ¿en cuántos tuve razón?
+$$
+Precision = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
+$$
+Es útil en problemas donde tener un **falso positivo es peligroso** (o costoso).
+###### Recall (sensibilidad) - ¿Detecto todos los positivos? - Capacidad de detectar positivos
+Mide la proporción de ejemplos positivos correctamente clasificados por el modelo.
+Te mueves hacia el lado en la matriz de confusión.
+De todos los sí reales, ¿cuántos detecté?
+$$
+Recall = \frac{\text{True Positives}}{\text{True Positives} + \text{False Negatives}}
+$$
+Útil cuando tener **falsos negativos es peligroso** (o costoso).
+###### Specifity - Capacidad de detectar negativos
+Mide la proporción de ejemplos negativos correctamente identificados como negativos.
+De todos los no reales, ¿cuántos detecté?
+$$
+Specifity = \frac{\text{True Negatives}}{\text{True Negatives} + \text{False Positives}}
+$$
+Útil cuando tener **falsos positivos es peligroso** (o costoso).
+###### F1-score
+Es la media armónica entre precision y recall. Esta media penaliza más fuertemente los valores desbalanceados (por ejemplo, alta precisión pero baja recall).
+$$
+F_1 = \frac{2 \times (\text{Precision} \times \text{Recall})}{\text{Precision} + \text{Recall}}
+$$
+Un $F_1 = 1$ indica *máxima precisión y máximo recall*, mientras que un valor bajo indica que una o ambas métricas son deficientes.
+###### AUC-ROC (Area Under Curve - Receiver Operating Characteristic)
+Es el área bajo una curva que muestra la relación entre el False Positive Rate (eje X) y el True Positive Rate (recall). Un AUC de 1.0 significa un clasificador perfecto, mientras que un 0.5 es interpretado como que es aleatorio, y menor a eso es un modelo invertido.
+###### AUC-PR (Area Under Curve - Precision Recall)
+La curva Precision-Recall muestra el compromiso entre ambas métricas para todos los posibles umbrales de decisión, esta métrica es una medida global del rendimiento del modelo. En el eje X va el recall mientras que en el eje Y va la precision; cuanto mas cerca de 1, el modelo es mejor identificando positivos correctamente y evitando falsos positivos.
+
+A diferencia del AUC-ROC, no considera los True Negatives, lo que la hace más sensible a la calidad de las predicciones sobre la clase positiva. Solo evalúa la clase positiva y es mejor para clases minoritarias.
+##### Para regresión
+###### MAE (Mean Absolute Error)
+Mide el promedio de las diferencias absolutas entre los valores verdaderos y los valores predichos. No penaliza tanto los errores grandes y por eso es más robusto frente a outliers.
+$$
+\text{MAE} = \frac{1}{n}\sum_{i=1}^{n}{|y_i-\hat{y}_i|}
+$$
+###### MSE (Mean Squared Error)
+Mide el promedio de los cuadrados de los errores entre las predicciones del modelo y los valores reales. Evalúa que tan lejos están las predicciones en promedio, penalizando más fuertemente los errores grandes.
+$$
+\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}{(y_i-\hat{y}_i)^2}
+$$
+###### RMSE (Root Mean Squared Error)
+Es la raíz cuadrada del MSE.
+$$
+\text{RMSE} = \sqrt{\text{MSE}}
+$$
+###### $R^2$ Score
+Mide qué proporción de la varianza total de los datos puede explicar el modelo. Es un indicador de calidad del ajuste del modelo respecto a una línea que predice siempre el promedio
+$$
+R^2 = 1 - \frac{\text{SSE}}{\text{SST}}
+$$
+###### MAPE (Mean Absolute Percentage Error)
+Mide el error promedio como un porcentaje del valor real, es decir, cuánto se equivoca el modelo en relación al tamaño del valor que intenta predecir.
+$$
+\text{MAPE} = \frac{100\%}{n} \sum_{i=1}^{n}{|(y_i - \hat{y}_i)/y_i|}
+$$
+Un MAPE del 10% significa que el modelo en promedio se equivoca un 10% del valor real.
+###### MSLE (Mean Squared Logarithmic Error)
+Se usa cuando crecen exponencialmente o polinómica. Mide el promedio del cuadrado de las diferencias entre los logaritmos de los valores reales y predichos.
+$$
+\text{MSLE} = \frac{1}{n}\sum_{i=1}^{n}{(\log(1+\hat{y}_i) - \log(1+y_i))^2}
+$$
+###### ¿Cómo elegir?
+- Usar MAE cuando:
+	- Se necesita robustez ante outliers.
+	- Los errores deben ser interpretados directamente.
+	- Igualdad en la penalización de los errores.
+- Usar MSE cuando:
+	- Se entrena un modelo con gradiente descendiente: es suavemente diferenciable y favorece la optimización convexa.
+	- Es de interés castigar fuertemente los errores grandes.
+- Usar RMSE cuando:
+	- Se quiere una métrica interpretable pero que penalice los errores grandes.
+- Usar MSLE cuando:
+	- Es de interés el crecimiento relativo, mas no el valor exacto.
+	- Las diferencias porcentuales pequeñas importan más que las absolutas grandes.
+	- Estás modelando procesos que crecen exponencial o multiplicativamente.
+	- Se quiere penalizar más cuando el modelo subestima que cuando sobreestima.
+##### Para clustering
+###### Silhouette Score
+Puntos de un mismo cluster tienen que estar mas juntos y de distintos clusters más separados -> Cohesión pequeña.
+Se aplica para cada punto y se muestra el Silhouette Score global que es el promedio de $s(i)$ sobre todos los puntos $i$.
+$$
+s(i) = \frac{b(i) - a(i)}{\text{max}(a(i), b(i))} ; s(i) \in [-1, 1]
+$$
+$a(i)$ -> distancia promedio entre $i$ y todos los demas puntos en el mismo cluster (cohesion)
+$b(i)$ -> distancia promedio entre $i$ y todos los demas puntos del cluster mas cercano (separacion)
+
+$s(i) \approx 1$ -> el punto esta bien asignado (lejos de otros clusteres y cerca de su propio cluster)
+$s(i) \approx 0$ -> el punto esta en el limite entre dos clusteres
+$s(i) \lt 0$ -> el punto esta mal asignado, esta mas cerca de otro cluster que del suyo 
+###### DBI (Davies-Bouldin Index)
+Mide la calidad de un clustering en función de:
+- La dispersión interna de cada clúster -> ¿qué tan compactos son?
+- La separación entre clústeres -> ¿qué tan lejos están unos de otros?
+Un DBI bajo indica mejor calidad de clustering: clústeres más compactos y bien separados.
+
+Sea $C_i$ un clúster con centroide $\mu_i$ y $S_i$ su dispersión:
+$$
+S_i = \frac{1}{|C_i|} \sum_{x \subset C_i}{||x-\mu_i||}
+$$
+La separación entre dos clústeres $C_i$ y $C_j$:
+$$
+M_{ij} = ||\mu_i - \mu_j||
+$$
+La "similaridad" entre dos clústeres $i$ y $j$ se define como:
+$$
+R_ij = \frac{S_i + S_j}{M_{ij}}
+$$
+Entonces, el DBI se define como:
+$$
+\text{DBI} = \frac{1}{k}{\sum_{i=1}^{k}{\max_{j \neq i}R_{ij}}}
+$$
+Es decir, para cada clúster $i$, se toma el peor (mayor) caso de superposición con otro clúster $j$, y se promedia sobre todos los clústeres.
