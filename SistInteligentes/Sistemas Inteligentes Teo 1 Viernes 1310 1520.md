@@ -24,6 +24,7 @@
 	- Ética y uso responsable de la IA
 
 ## 2025-08-15 (Feriado, recuperado)
+
 Aprendizaje supervisado -> Datos con etiquetas (ya damos el patrón).
 Aprendizaje no supervisado -> "Aprende" patrones pero no identifica las clasificaciones por la falta de etiquetas.
 
@@ -263,6 +264,7 @@ El modelo KNN tiene 2 problemas principales:
 Actividad Final: https://colab.research.google.com/drive/1qKkQ27kTGw0JlJ_AXglPLya4cYh5lATM?usp=sharing
 
 ## 2025-05-09
+
 Un **hiperplano óptimo** hace referencia a la recta que separa dos espacios (muetras) en 2 o más dimensiones.
 
 #### Árboles de decisión (clasificación)
@@ -300,6 +302,7 @@ El SVM es un algoritmo que busca los mejores planos (superplanos óptimos) para 
 El *truco de Kernel* amplia los conjuntos de datos con una nueva dimensión que sí permite un hiperplano claro, una recta.
 
 ## 2025-09-10 (Recuperado del 5 de sept)
+
 El Aprendizaje No Supervisado **no recibe etiquetas** de los datos, su objetivo principal es *descubrir una estructura oculta o patrones* en los datos de entrada.
 - Se tiene un conjunto de datos $D=\{x_1, x_2, ..., x_n\}, x_i \in \mathbb{R}^p$ 
 - No existen etiquetas $y$ asociadas.
@@ -539,3 +542,73 @@ $$
 \text{DBI} = \frac{1}{k}{\sum_{i=1}^{k}{\max_{j \neq i}R_{ij}}}
 $$
 Es decir, para cada clúster $i$, se toma el peor (mayor) caso de superposición con otro clúster $j$, y se promedia sobre todos los clústeres.
+
+## 2025-09-26
+
+### Introducción a las redes neuronales (NN)
+
+No hay modelos, se construyen redes neuronales que permitan resolver el problema. El proceso original obtiene una nueva etapa:
+1. Problema
+2. Datos
+3. Hipótesis
+4. **Diseño de arquitectura**
+
+Las redes se conforman de neuronas conectadas, procesan vectores de entrada y generan salidas no lineales.
+
+1943: McCulloch y Pitts proponen el primer modelo matemático de neurona artificial
+Las neuronas naturales no siempre respondían a todos los estímulos. Modelaron un núcleo con $n$ entradas (una combinación lineal) y una salida.
+![Neurona Artificial](./NeuronaArtificial.jpg)
+
+El perceptrón se desarrollo en 1957-1958 por Frank Rosenblatt, es la primera red neuronal entrenable computacionalmente (por los pesos) y se basa en una neurona artificial con aprendizaje supervisado.
+![[Pasted image 20250926104613.png]]
+
+Este perceptrón no podía manejar la no linealidad necesaria para procesar el XOR.
+![Introducción a la no linealidad](./IntroNoLinealidad.jpg)
+
+Eventualmente se llegó a las **redes neuronales multicapa** (Multi-Layer Perceptron)
+
+Redes Neuronales Convolucionales (CNN) -> Capas de convolución -> Aplican filtros -> Imágenes
+
+Redes Neuronales Recurrentes y LSTM (RNN y Long-Short Term Memory) -> Depende de múltiples estados anteriores -> Bolsa, clima, reconocimiento de voz
+
+Deep Learning (DL) -> 
+
+Avances recientes: Redes adversaliales (GAN) y Large Language Models (LLM)
+
+### Fundamento matemático de las neuronas artificiales
+
+Cada entrada al núcleo está ponderada con un peso inicial desconocido. El núcleo hace una operación lineal (combinación, sumatoria). Hasta ese momento es algo lineal, una *función lineal*; sin embargo, las neuronas reales no son de esa forma.
+$$
+f(x) = x_{1}w_{1} + x_{2}w_{2} + ... + x_{n}w_{n}
+$$
+Posteriormente utilizan una **función de activación** para *remover la linealidad*, esta determina si la neurona se *activa o no*.
+A esto corresponde la siguiente pregunta: ¿Qué pesos hacen que cierto vector de entrada $X=\{x_1, x_2, ..., x_n\}$ me dé una determinada salida que busco obtener $y_k$? Porque lo único que es ajustable son los pesos de la red.
+
+El *bias* es una entrada más a la neurona y su valor siempre va a tener un 1 junto con su peso $w_b$, el sesgo altera la *sensibilidad* a los valores de entrada para activar la neurona.
+$$
+f(x) = x_{1}w_{1} + x_{2}w_{2} + ... + x_{n}w_{n} + bw_{b}
+$$
+
+Nota: Todas las funciones de activación mapean la salida lineal a un valor entre 0 a 1.
+
+#### ¿Cómo entreno la red neuronal?
+
+Lo que se busca es optimizar a un mínimo el error entre la salida de la neurona y el resultado real. Ajustar los pesos para que el vector predicho esté lo más cerca posible del vector real, a través del backpropagation y el gradiente descendente.
+
+**Épocas**
+1. Propagación hacia adelante (Forward propagation) (Feed Forward)
+	- Al inicio todos los pesos tienen un valor aleatorio, así que se ejecuta la red neuronal.
+	- Se ejecuta hacia adelante (la alimenta hacia adelante) hasta generar un resultado.
+2. Comparación
+	- Se obtiene un vector predicho y se compara con el vector deseado.
+3. Propagación hacia atrás (Backpropagation)
+	- Se modifican los pesos (Learning Rate) por capa hacia atrás.
+	- Se ejecuta de nuevo con los pesos nuevos y se repite el proceso hasta que la comparación sea lo más cercana posible.
+
+Pero ahora, ¿cómo sabe el algoritmo del entrenamiento hacia dónde ajustar los pesos?
+Lo sabe según la función de pérdida (es la distancia de la predicción con la realidad, como la $L_2$)
+![[Pasted image 20250926112311.png]]
+
+El algoritmo tiene que ir bajando hasta llegar al vértice, ¿cómo? Mediante el **gradiente**; cuando disminuye va hacia el menor cambio posible. El algoritmo calcula el gradiente de la función de pérdida para darle sentido negativo y reducir así la diferencia entre la predicción y la etiqueta real.
+
+Nota: La red debe tener tantas salidas como clases que debe clasificar. One-Hot Encoding, todas son 0 excepto una.

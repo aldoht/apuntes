@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "e3d123b459732d7b",
+        "id": "7b2237933436b00b",
         "type": "tabs",
         "children": [
           {
-            "id": "501e2fc8e818fdab",
+            "id": "543b0e8d69a3186a",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810"
+              "title": "New tab"
             }
           }
         ]
@@ -171,18 +167,23 @@
       "simple-sketch:Simple Sketch": false
     }
   },
-  "active": "501e2fc8e818fdab",
+  "active": "e86b8ac6e4727d52",
   "lastOpenFiles": [
+    "Untitled 1.md",
+    "Untitled 2.md",
+    "Untitled.md",
     "SistInteligentes/Sistemas Inteligentes Teo 1 Viernes 1310 1520.md",
+    "Pasted image 20250926112311.png",
+    "SistInteligentes/IntroNoLinealidad.jpg",
+    "Pasted image 20250926104613.png",
+    "SistInteligentes/NeuronaArtificial.jpg",
     "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
     "AWS/Academy Cloud Foundations/Module 1.md",
     "AudCiberseguridad/~WRL1467.tmp",
     "AudCiberseguridad/~WRD0005.tmp",
-    "Untitled 1.md",
     "SistInteligentes/simple_sketch-8-22-2025_12-55-06_PM.jpg",
     "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
     "IoT/Programación IoT Teo 1  Lunes 1310 - 1520.md",
-    "Untitled.md",
     "Pasted image 20250829111732.png",
     "Pasted image 20250829110619.png",
     "Pasted image 20250829105417.png",
@@ -197,8 +198,6 @@
     "IoT/Tarea1/Tarea1.ino~",
     "IoT/Tarea1/Tarea1.ino",
     "IoT/Tarea1",
-    "IoT/puenteH.jpg",
-    "SistInteligentes/simple_sketch-8-22-2025_12-05-16_PM.jpg",
     "El.md",
     "home/firelink/Documents/Apuntes/AudCiberseguridad/Control.md"
   ]
