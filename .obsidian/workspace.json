@@ -8,13 +8,17 @@
         "type": "tabs",
         "children": [
           {
-            "id": "543b0e8d69a3186a",
+            "id": "50e678ab6d26b385",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "Analisis de Datos Teo 1 Viernes 1520 1730"
             }
           }
         ]
@@ -74,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 264.5
+    "width": 264.5,
+    "collapsed": true
   },
   "right": {
     "id": "a3930dc0a11af502",
@@ -167,10 +172,12 @@
       "simple-sketch:Simple Sketch": false
     }
   },
-  "active": "e86b8ac6e4727d52",
+  "active": "50e678ab6d26b385",
   "lastOpenFiles": [
-    "Untitled 1.md",
+    "AnalisisDatos/ActividadIndividual1/ActividadIndividual1.pdf",
+    "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
     "Untitled 2.md",
+    "Untitled 1.md",
     "Untitled.md",
     "SistInteligentes/Sistemas Inteligentes Teo 1 Viernes 1310 1520.md",
     "Pasted image 20250926112311.png",
@@ -182,7 +189,6 @@
     "AudCiberseguridad/~WRL1467.tmp",
     "AudCiberseguridad/~WRD0005.tmp",
     "SistInteligentes/simple_sketch-8-22-2025_12-55-06_PM.jpg",
-    "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
     "IoT/Programación IoT Teo 1  Lunes 1310 - 1520.md",
     "Pasted image 20250829111732.png",
     "Pasted image 20250829110619.png",
