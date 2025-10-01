@@ -6,6 +6,7 @@
 **/*.synctex.gz
 **/*.toc
 
+IoT/Batbot/batbot/.gitignore
 IoT/Batbot/batbot/.pio
 IoT/Batbot/batbot/.vscode/.browse.c_cpp.db*
 IoT/Batbot/batbot/.vscode/c_cpp_properties.json
