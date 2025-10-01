@@ -1,0 +1,7 @@
+{
+    "name": "motors",
+    "version": "1.0.0",
+    "dependencies": {
+        "Servo": "*"
+    }
+}
