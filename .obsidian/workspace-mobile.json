@@ -1,0 +1,179 @@
+{
+  "main": {
+    "id": "f79424ab8e80247b",
+    "type": "split",
+    "children": [
+      {
+        "id": "8323c5062b1c9d70",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "3192bcd4f9a8e613",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3aa130d227aeb331",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "e3c95db1345421e3",
+        "type": "leaf",
+        "state": {
+          "type": "file-explorer",
+          "state": {
+            "sortOrder": "alphabetical",
+            "autoReveal": false
+          },
+          "icon": "lucide-folder-closed",
+          "title": "Files"
+        }
+      },
+      {
+        "id": "47e2a531cdc1b15f",
+        "type": "leaf",
+        "state": {
+          "type": "search",
+          "state": {
+            "query": "",
+            "matchingCase": false,
+            "explainSearch": false,
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical"
+          },
+          "icon": "lucide-search",
+          "title": "Search"
+        }
+      },
+      {
+        "id": "d9319e76808161ea",
+        "type": "leaf",
+        "state": {
+          "type": "tag",
+          "state": {
+            "sortOrder": "frequency",
+            "useHierarchy": true,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-tags",
+          "title": "Tags"
+        }
+      },
+      {
+        "id": "3d71adf4af3e5944",
+        "type": "leaf",
+        "state": {
+          "type": "bookmarks",
+          "state": {},
+          "icon": "lucide-bookmark",
+          "title": "Bookmarks"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "right": {
+    "id": "9eba17903fda7a5e",
+    "type": "mobile-drawer",
+    "children": [
+      {
+        "id": "77be758699bedc74",
+        "type": "leaf",
+        "state": {
+          "type": "backlink",
+          "state": {
+            "collapseAll": false,
+            "extraContext": false,
+            "sortOrder": "alphabetical",
+            "showSearch": false,
+            "searchQuery": "",
+            "backlinkCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-coming-in",
+          "title": "Backlinks"
+        }
+      },
+      {
+        "id": "f9877b876f2e172d",
+        "type": "leaf",
+        "state": {
+          "type": "outgoing-link",
+          "state": {
+            "linksCollapsed": false,
+            "unlinkedCollapsed": true
+          },
+          "icon": "links-going-out",
+          "title": "Outgoing links"
+        }
+      },
+      {
+        "id": "283c7dd21c0a936b",
+        "type": "leaf",
+        "state": {
+          "type": "outline",
+          "state": {
+            "followCursor": false,
+            "showSearch": false,
+            "searchQuery": ""
+          },
+          "icon": "lucide-list",
+          "title": "Outline"
+        }
+      }
+    ],
+    "currentTab": 0
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "3192bcd4f9a8e613",
+  "lastOpenFiles": [
+    "test.md",
+    "Pasted image 20250829111732.png",
+    "LaTeX/ubo-template/images/logo-ubo.eps",
+    "LaTeX/ubo-template/images/logo-ubo.png",
+    "LaTeX/ubo-template/ubo.tex",
+    "LaTeX/ubo-template/images",
+    "LaTeX/ubo-template/ubo.sty",
+    "LaTeX/ubo-template/ubo.pdf",
+    "LaTeX/ubo-template",
+    "LaTeX",
+    "Pasted image 20250926112311.png",
+    "Libros/Machine Learning with PyTorch and Scikit-Learn.pdf",
+    "Libros/Artificial Intelligence - A Modern Approach (3rd Edition).pdf",
+    "Libros/StorytellingWithData.pdf",
+    "IoT/pot_mapping.svg",
+    "IoT/Programación IoT Teo 1  Lunes 1310 - 1520.md",
+    "IoT/puenteH.jpg",
+    "IoT/pot_mapping.jpg",
+    "Pasted image 20250926104613.png",
+    "SistInteligentes/Sistemas Inteligentes Teo 1 Viernes 1310 1520.md",
+    "SistInteligentes/grafica_hp_gpm.png",
+    "SistInteligentes/simple_sketch-8-22-2025_12-55-06_PM.jpg",
+    "SistInteligentes/simple_sketch-8-22-2025_12-05-16_PM.jpg",
+    "AudCiberseguridad/Diseño y Auditoría en Ciberseguridad Teo 1 Miércoles 1440 1810.md",
+    "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
+    "AWS/Academy Cloud Foundations/Module 1.md"
+  ]
+}
