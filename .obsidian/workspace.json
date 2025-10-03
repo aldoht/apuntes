@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "7b2237933436b00b",
+        "id": "bd0345f67d293025",
         "type": "tabs",
         "children": [
           {
-            "id": "50e678ab6d26b385",
+            "id": "4d6e631165e61407",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -172,14 +172,16 @@
       "simple-sketch:Simple Sketch": false
     }
   },
-  "active": "50e678ab6d26b385",
+  "active": "4d6e631165e61407",
   "lastOpenFiles": [
-    "AnalisisDatos/ActividadIndividual1/ActividadIndividual1.pdf",
+    "SistInteligentes/Sistemas Inteligentes Teo 1 Viernes 1310 1520.md",
+    "Libros/Artificial Intelligence - A Modern Approach (3rd Edition).pdf",
+    "Libros/An Introduction to Statistical Learning.pdf",
     "AnalisisDatos/Analisis de Datos Teo 1 Viernes 1520 1730.md",
+    "AnalisisDatos/ActividadIndividual1/ActividadIndividual1.pdf",
     "Untitled 2.md",
     "Untitled 1.md",
     "Untitled.md",
-    "SistInteligentes/Sistemas Inteligentes Teo 1 Viernes 1310 1520.md",
     "Pasted image 20250926112311.png",
     "SistInteligentes/IntroNoLinealidad.jpg",
     "Pasted image 20250926104613.png",
@@ -201,9 +203,6 @@
     "SistInteligentes/grafica_hp_gpm.png",
     "SistInteligentes/Pasted image 20250827164926.png",
     "AudCiberseguridad/ISO 270022023 Controles.pdf",
-    "IoT/Tarea1/Tarea1.ino~",
-    "IoT/Tarea1/Tarea1.ino",
-    "IoT/Tarea1",
     "El.md",
     "home/firelink/Documents/Apuntes/AudCiberseguridad/Control.md"
   ]

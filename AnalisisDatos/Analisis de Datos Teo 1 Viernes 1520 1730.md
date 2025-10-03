@@ -132,3 +132,59 @@ La *causalidad* indica que un cambio en una variable directamente provoca un cam
 	- Las variables deben estar correlacionadas.
 - Eliminación de alternativas
 	- No deben existir otras variables que expliquen la relación observada.
+
+## 2025-10-02
+
+IA --> Area de la informatica que busca que las maquinas puedan realizar tareas que requieren inteligencia humana, como la toma de decisiones o la comunicacion en lenguaje natural.
+
+ML --> Rama de la IA que se enfoca en que los sistemas aprendan patrones a partir de datos.
+- Regresion
+- Clasificacion
+- Clustering
+
+DL --> Subconjunto del ML que usa ANN con muchas capas, imitando de forma simple el como funcionan las neuronas humanas.
+
+Generative IA --> Crea contenido nuevo que no existia antes.
+
+### Regresion lineal simple
+
+Queremos trazar una linea recta que explique como cambia Y cuando cambia X (Y=mX+b).
+Para encontrar esta recta se usa un metodo llamado OLS (Ordinary Least Squares):
+- La idea es ajustar la recta para que la diferencia entre los valores reales y los predichos sea la mas pequeña posible.
+- Se minimiza la **suma de los cuadrados de los errores**.
+
+**Modelo**
+$$
+Y_{i} = \beta_0 + \beta_1X_i + \epsilon_i
+$$
+**Estimación**
+$$
+\hat{Y}_i = b_0 + b_1X_i
+$$
+
+El numerador de $b_1$ mide la covarianza entre X y Y (como se mueven juntas); el denominador mide la varianza de X (que tanto se dispersa). Esto es la tasa de cambio promedio de Y cuando X cambia en una unidad. El $b_0$ es la media de Y menos $b_1$ por la media de X.
+
+**Error**
+$$
+e_i = Y_i - \hat{Y}_i
+$$
+
+El metodo OLS busca valores de $b_0$ y $b_1$ que minimicen la suma de los ${e_i}^2$.
+
+### Métricas de evaluación en regresión
+
+1. MSE
+	- Promedio de errores al cuadrado.
+2. RMSE
+	- Misma idea que el MSE pero con las mismas unidades de Y.
+3. MAE
+	- Promedio de la magnitud de los errores sin importar el signo, mas robusto que el MSE frente a errores grandes.
+4. $R^2$
+	- Proporción de variabilidad de Y que el modelo explica con X.
+
+### Separación del dataset
+
+Se separa en train (70%-80%) y test (20%-30%), con el train entrenamos el modelo y con test lo probamos. Logramos lo siguiente:
+- Detectamos el sobreajuste.
+- Verificamos la generalización del modelo.
+
