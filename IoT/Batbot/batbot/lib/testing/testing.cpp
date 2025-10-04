@@ -22,23 +22,26 @@ void testMotors() {
 
 void testBuzzer() {
     for (int i = 32; i <= MAX_ANALOG+1; i *= 2) {
-    analogWrite(BUZZER_PIN, i);
-    delay(1000);
-    analogWrite(BUZZER_PIN, 0);
+        analogWrite(BUZZER_PIN, i);
+        delay(1000);
+        analogWrite(BUZZER_PIN, 0);
     }
     return;
 }
 
 void testSensor() {
     turnSensor(Side::LEFT);
-    readDistance();
     delay(1000);
+    readDistance();
+    delay(2000);
     turnSensor(Side::FRONT);
-    readDistance();
     delay(1000);
+    readDistance();
+    delay(2000);
     turnSensor(Side::RIGHT);
-    readDistance();
     delay(1000);
+    readDistance();
+    delay(2000);
     return;
 }
 

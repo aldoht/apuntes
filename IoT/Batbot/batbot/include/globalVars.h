@@ -12,16 +12,14 @@
 #define BUZZER_POWER 100
 #define BUZZER_TIME 400
 #define MAX_ANALOG 255
-const uint8_t MOTOR1_PINS[2] = {10, 11};
-const uint8_t MOTOR2_PINS[2] = {12, 13};
 #define BUZZER_PIN 3
-#define ECHO_PIN 5
-#define TRIGGER_PIN 6
-#define SERVO_PIN 9
-#define ENABLE1_PIN 7
-#define ENABLE2_PIN 8
-extern const uint8_t MOTOR1_PINS[2];
-extern const uint8_t MOTOR2_PINS[2];
+#define ECHO_PIN 12
+#define TRIGGER_PIN 13
+#define SERVO_PIN 11
+#define ENABLE1_PIN 6
+#define ENABLE2_PIN 3
+const int MOTOR1_PINS[2] = {2, 4};
+const int MOTOR2_PINS[2] = {5, 7};
 extern Servo SERVOMOTOR;
 extern float sensorDistance;
 extern float error;

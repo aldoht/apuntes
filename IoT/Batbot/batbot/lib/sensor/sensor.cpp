@@ -38,6 +38,10 @@ float readDistance() {
     int pulseTime = pulseIn(ECHO_PIN, HIGH);
     float soundDistance = pulseTime*0.034 / 2;
 
+    if (soundDistance < 0) {
+        soundDistance *= -1;
+    }
+
     Serial.print("Distance: ");
     Serial.print(soundDistance);
     Serial.print(" cm");

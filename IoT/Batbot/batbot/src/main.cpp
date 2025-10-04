@@ -19,15 +19,17 @@ void setup() {
 	pinMode(ECHO_PIN, INPUT);
 	pinMode(TRIGGER_PIN, OUTPUT);
 	pinMode(SERVO_PIN, OUTPUT);
+    pinMode(ENABLE1_PIN, OUTPUT);
+    pinMode(ENABLE2_PIN, OUTPUT);
 
 	turnOffAllPins();
 	setLeftMotorSpeed(MAX_ANALOG);
-	setRightMotorSpeed(MAX_ANALOG);
+    setRightMotorSpeed(MAX_ANALOG);
+	
 	SERVOMOTOR.attach(SERVO_PIN);
 
 	Serial.begin(9600);
-	turnSensor(Side::RIGHT);
-	delay(2500);
+	// delay(2500);
 }
 
 void run() {
@@ -57,5 +59,8 @@ void run() {
 }
 
 void loop() {
-	run();
+	// run();
+    goForward();
+    delay(4000);
+    // testSensor();
 }

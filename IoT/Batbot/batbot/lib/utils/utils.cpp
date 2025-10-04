@@ -26,7 +26,7 @@ void printOutputMessage(Element e, Side s) {
     String strElement = (e == 0) ? "sensor " : "car";
     Serial.print("Turning ");
     Serial.print(strElement);
-    Serial.print(" to the ");
+    Serial.print("to the ");
     Serial.println(strSide);
     return;
 }
