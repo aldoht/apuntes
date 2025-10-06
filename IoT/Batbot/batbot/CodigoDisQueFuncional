@@ -1,0 +1,148 @@
+#include <Servo.h>
+Servo servo ;
+
+// =================== AJUSTES DE VELOCIDAD ===================
+// Velocidades de avance 
+int leftSpeed  = 205;  // motor LEFT
+int rightSpeed = 225;  // motor RIGHT
+
+// Velocidades de retroceso girando a la DERECHA
+int backLeftSpeed  = -80;   // izquierda atrás (menos fuerte)
+int backRightSpeed = -180;  // derecha atrás (más fuerte)
+
+// =================== TIEMPOS ===================
+const int TURN_CHUNK_MS = 20;              // Paso base de maniobra (ms)
+const unsigned long MAX_REVERSE_MS = 200;  // Máx retroceso por evento (ms)
+
+// =================== DETECCIÓN ===================
+
+const int DETECTION_THRESHOLD_MM = 150;    // 150 mm = 15 cm
+
+// =================== Pines HC-SR04 ===================
+const int trigPin = 13;
+const int echoPin = 12;
+
+// =================== Servo (sensor) ===================
+const int servoPin = 11;
+const int RIGHT_ANGLE = 180; 
+
+// =================== L298N (motores) ===================
+const int enAPin = 6;
+const int in1Pin = 7;
+const int in2Pin = 5;
+const int in3Pin = 4;
+const int in4Pin = 2;
+const int enBPin = 3;
+
+enum Motor { LEFT, RIGHT };
+
+// ======== NUEVO: inversión independiente por motor ========
+//  1  = 
+// -1  = 
+const int LEFT_DIR  = 1;
+const int RIGHT_DIR = 1;  
+
+// =================== Funciones de motor ===================
+void go(enum Motor m, int speed) {
+  // aplica inversión por motor
+  int dir = (m == LEFT) ? LEFT_DIR : RIGHT_DIR;
+  int s = speed * dir;
+
+  // dirección
+  digitalWrite(m == LEFT ? in1Pin : in3Pin , s > 0 ? HIGH : LOW);
+  digitalWrite(m == LEFT ? in2Pin : in4Pin , s <= 0 ? HIGH : LOW);
+
+  // PWM (0–255)
+  int pwm = s < 0 ? -s : s;
+  if (pwm > 255) pwm = 255;
+  analogWrite(m == LEFT ? enAPin : enBPin, pwm);
+}
+
+// =================== Lectura de distancia (mm) ===================
+unsigned int readDistance () {
+  digitalWrite(trigPin , HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin , LOW);
+  unsigned long period = pulseIn(echoPin, HIGH);
+  return period * 343 / 2000; // mm aprox
+}
+
+#define NUM_ANGLES 7
+unsigned int distance [NUM_ANGLES];
+
+// Servo fijo mirando a la derecha
+void readNextDistance () {
+  servo.write(RIGHT_ANGLE);
+  delay(20);
+  unsigned int d = readDistance();
+  for (unsigned char i = 0 ; i < NUM_ANGLES ; i++) {
+    distance[i] = d;
+  }
+}
+
+// =================== Setup ===================
+void setup () {
+  pinMode(trigPin , OUTPUT);
+  pinMode(echoPin, INPUT);
+  digitalWrite(trigPin , LOW);
+
+  pinMode(enAPin, OUTPUT);
+  pinMode(in1Pin, OUTPUT);
+  pinMode(in2Pin, OUTPUT);
+  pinMode(in3Pin, OUTPUT);
+  pinMode(in4Pin, OUTPUT);
+  pinMode(enBPin, OUTPUT);
+
+  servo.attach(servoPin);
+  servo.write(RIGHT_ANGLE);
+
+  go(LEFT, 0);
+  go(RIGHT, 0);
+
+  readNextDistance();
+}
+
+// =================== Loop ===================
+void loop () {
+  readNextDistance();
+
+  // ¿Algo cerca?
+  bool tooClose = false;
+  for (unsigned char i = 0 ; i < NUM_ANGLES ; i++) {
+    if (distance[i] < DETECTION_THRESHOLD_MM) {
+      tooClose = true;
+      break;
+    }
+  }
+
+  if (tooClose) {
+    // Retroceder hacia la DERECHA hasta despejar o agotar tiempo
+    unsigned long reverseStart = millis();
+    while (true) {
+      go(LEFT,  backLeftSpeed);
+      go(RIGHT, backRightSpeed);
+
+      int halfChunk = TURN_CHUNK_MS / 2;
+      if (halfChunk < 1) halfChunk = 1;
+      delay(halfChunk);
+
+      readNextDistance();
+
+      bool stillClose = false;
+      for (unsigned char j = 0 ; j < NUM_ANGLES ; j++) {
+        if (distance[j] < DETECTION_THRESHOLD_MM) { 
+          stillClose = true; 
+          break; 
+        }
+      }
+
+      if (!stillClose || (millis() - reverseStart >= MAX_REVERSE_MS)) break;
+    }
+  } else {
+    // Avance libre
+    go(LEFT, leftSpeed);
+    go(RIGHT, rightSpeed);
+  }
+
+  delay(50);
+}
