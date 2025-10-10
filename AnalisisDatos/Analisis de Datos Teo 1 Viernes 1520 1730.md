@@ -188,3 +188,66 @@ Se separa en train (70%-80%) y test (20%-30%), con el train entrenamos el modelo
 - Detectamos el sobreajuste.
 - Verificamos la generalización del modelo.
 
+## 2025-10-10
+
+### Ética en el análisis de datos
+
+¿Es ético analizar información sin consentimiento de las personas?
+
+### Sesgos
+
+Los *sesgos de percepción* son como trampas mentales que pueden hacer que interpretemos la información de manera incorrecta. A veces inconscientemente nuestro cerebro nos lleva a ver las cosas de una manera que no es del todo objetiva o precisa.
+
+**Sesgo de confirmación** --> Solo escuchas lo que quieres oir.
+**Sesgo de disponibilidad** --> Basamos nuestras decisiones en lo que mas facil recordamos.
+**Sesgo de autoridad** --> Tendencia natural de las personas a confiar en figuras de autoridad.
+**Sesgo de anclaje** --> Te aferras a la primera impresion o dato que recibes.
+
+Algoritmos que predicen y muestran contenido que es probable que interese o con el que interactues (basado en tu comportamiento anterior), llevando a una *cámara de eco* donde los usuarios solo ven y consumen ideas que refuerzan sus creencias existentes --> *polarización social*.
+
+### Principios de Visualización de Edward Tufte
+
+1. Evitar el desorden. Elimina todos los elementos gráficos que no contribuyan directamente a la comprensión del contenido.
+2. Muestra comparaciones.
+3. Pensar en los gráficos al pasarlos a tinta: ¿es un desperdicio?
+4. Integridad. Los gráficos deben representar los datos de forma precisa y sin distorsión.
+5. Integración de texto y gráficos.
+6. Contexto para la interpretación.
+
+### Business Intelligence
+
+Tecnologías, aplicaciones y prácticas que se utilizan para recolectar, integrar, analizar y presentar datos de manera que apoyen la toma de decisiones en una organización.
+- Integración de datos.
+- Análisis de datos.
+- Visualización de datos
+- Reporting (informes).
+- Toma de decisiones.
+
+### Proceso de creación de gráficos efectivos
+
+1. Comunicación inicial con el cliente
+	- ¿Objetivo principal?
+	- ¿Público objetivo?
+	- ¿Qué decisiones espera el cliente?
+	- ¿Requisitos específicos?
+2. Recopilación y comprensión de datos
+	- Análisis preliminar.
+3. Planificación y diseño inicial
+	- Crear un plan y diseño inicial.
+	- Selección de gráficos.
+	- Borradores.
+4. Feedback del cliente y revisión
+	- Presentación del borrador.
+	- Revisión del feedback.
+5. Desarrollo de iteraciones
+	- Crear varias versiones del gráfico.
+	- Verificación de datos.
+6. Detalles finales y diseño estético
+	- Estética y claridad.
+	- Revisión de coherencia.
+7. Presentación y ajustes finales
+	- Presentación final.
+	- Realizar ajustes finales.
+8. Entrega y seguimiento
+	- Proporcionar el gráfico.
+	- Ofrecer soporte adicional.
