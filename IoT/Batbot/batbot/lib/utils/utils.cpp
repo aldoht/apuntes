@@ -47,8 +47,12 @@ void turnOffAllPins()
 {
     turnOffMotorPins();
     analogWrite(BUZZER_PIN, 0);
-    digitalWrite(ECHO_PIN, LOW);
-    digitalWrite(TRIGGER_PIN, LOW);
+    digitalWrite(L_ECHO_PIN, LOW);
+    digitalWrite(L_TRIGGER_PIN, LOW);
+    digitalWrite(R_ECHO_PIN, LOW);
+    digitalWrite(R_TRIGGER_PIN, LOW);
+    digitalWrite(C_ECHO_PIN, LOW);
+    digitalWrite(C_TRIGGER_PIN, LOW);
     return;
 }
 

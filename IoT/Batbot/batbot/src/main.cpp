@@ -1,5 +1,7 @@
 #include "../include/globalVars.h"
-float sensorDistance = 0.0;
+float sensorLeftDistance = 0.0;
+float sensorRightDistance = 0.0;
+float sensorCenterDistance = 0.0;
 float error = 0.0;
 float prevError = 0.0;
 float sumError = 0.0;
@@ -16,8 +18,12 @@ void setup()
 	pinMode(MOTOR2_PINS[0], OUTPUT);
 	pinMode(MOTOR2_PINS[1], OUTPUT);
 	pinMode(BUZZER_PIN, OUTPUT);
-	pinMode(ECHO_PIN, INPUT);
-	pinMode(TRIGGER_PIN, OUTPUT);
+	pinMode(L_ECHO_PIN, INPUT);
+	pinMode(L_TRIGGER_PIN, OUTPUT);
+	pinMode(R_ECHO_PIN, INPUT);
+	pinMode(R_TRIGGER_PIN, OUTPUT);
+	pinMode(C_ECHO_PIN, INPUT);
+	pinMode(C_TRIGGER_PIN, OUTPUT);
 	pinMode(ENABLE1_PIN, OUTPUT);
 	pinMode(ENABLE2_PIN, OUTPUT);
 

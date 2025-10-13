@@ -2,7 +2,7 @@
 #define SENSOR_H_
 
 #include "../../include/globalVars.h"
-float readDistance(void);
+float readDistance(Side);
 extern void printOutputMessage(Element, Side);
 
 #endif
