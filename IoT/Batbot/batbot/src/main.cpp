@@ -13,10 +13,10 @@ float ut = 0.0;
 
 void setup()
 {
-	pinMode(MOTOR1_PINS[0], OUTPUT);
-	pinMode(MOTOR1_PINS[1], OUTPUT);
-	pinMode(MOTOR2_PINS[0], OUTPUT);
-	pinMode(MOTOR2_PINS[1], OUTPUT);
+	pinMode(MOTORA_PINS[0], OUTPUT);
+	pinMode(MOTORA_PINS[1], OUTPUT);
+	pinMode(MOTORB_PINS[0], OUTPUT);
+	pinMode(MOTORB_PINS[1], OUTPUT);
 	pinMode(BUZZER_PIN, OUTPUT);
 	pinMode(L_ECHO_PIN, INPUT);
 	pinMode(L_TRIGGER_PIN, OUTPUT);
@@ -24,15 +24,15 @@ void setup()
 	pinMode(R_TRIGGER_PIN, OUTPUT);
 	pinMode(C_ECHO_PIN, INPUT);
 	pinMode(C_TRIGGER_PIN, OUTPUT);
-	pinMode(ENABLE1_PIN, OUTPUT);
-	pinMode(ENABLE2_PIN, OUTPUT);
+	pinMode(ENABLEA_PIN, OUTPUT);
+	pinMode(ENABLEB_PIN, OUTPUT);
 
 	turnOffAllPins();
 	setLeftMotorSpeed(MAX_ANALOG);
 	setRightMotorSpeed(MAX_ANALOG);
 
 	Serial.begin(9600);
-	// delay(2500);
+	delay(2500);
 }
 
 void loop()

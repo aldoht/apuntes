@@ -32,7 +32,7 @@ float readDistance(Side s)
     delayMicroseconds(10);
     digitalWrite(t_pin, LOW);
 
-    int pulseTime = pulseIn(t_pin, HIGH);
+    int pulseTime = pulseIn(e_pin, HIGH);
     float soundDistance = pulseTime * 0.034 / 2;
 
     if (soundDistance < 0)

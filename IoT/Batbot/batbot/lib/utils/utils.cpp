@@ -36,10 +36,10 @@ void printOutputMessage(Element e, Side s)
 
 void turnOffMotorPins()
 {
-    digitalWrite(MOTOR1_PINS[0], LOW);
-    digitalWrite(MOTOR1_PINS[1], LOW);
-    digitalWrite(MOTOR2_PINS[0], LOW);
-    digitalWrite(MOTOR2_PINS[1], LOW);
+    digitalWrite(MOTORA_PINS[0], LOW);
+    digitalWrite(MOTORA_PINS[1], LOW);
+    digitalWrite(MOTORB_PINS[0], LOW);
+    digitalWrite(MOTORB_PINS[1], LOW);
     return;
 }
 
