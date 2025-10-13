@@ -36,6 +36,10 @@ How do we choose from among multiple consistent (that agrees with all the data) 
 --> We prefer the **simplest** hypothesis consistent with the data. This principle is called **Ockham's razor**.
 In general, there is a *tradeoff* between complex hypotheses that fit the training data well and simpler hypotheses that may generalize better.
 
+## 18.6 Regression and Classification with Linear Models
+
+???
+
 ## 18.7. Artificial Neural Networks
 
 Neural networks, connectionism, parallel distributed processing, and neural computation --> All the same.
@@ -74,4 +78,38 @@ Sometimes, multiple outputs are required. For example when categorizing images o
 
 #### 18.7.2. Single-layer feed-forward neural networks (perceptrons)
 
-To be continued...
+A network with all the inputs connected directly to the outputs is called a **single-layer neural network**, also known as **perceptron network**.
+
+We can notice that a perceptron network with $m$ outputs is really $m$ separate networks because each weight affects only one of the outputs. Thus, there will be $m$ separate training processes.
+
+If any training process (whether it is the *perceptron learnining rule* or the *gradient descent rule*) is used for training a perceptron network to learn the two-bit adder function, something interesting happens. The unit in charge of the sum function fails to learn it because a linear classifier represents linear decision boundaries in the input space, and the sum function is an XOR of the two inputs, a not linearly separable function! (as seen in the figure below).
+
+![XOR Visualization](./imgs/XOR_visualization.jpg)
+
+A line that correctly separates both classes can not be created, therefore the XOR function is not *linearly separable*, and thus the unit fails to learn it. A correct approach would be to use a non-linear function, as also seen in [[Sistemas Inteligentes Teo 1 Viernes 1310 1520#Introducción a las redes neuronales (NN)]].
+
+This was a significant setback to neural networks, but perceptron networks can be very effective in some cases. For example, it can represent some quite "complex" Boolean functions very compactly, such as the *majority function* using each $w_i = 1$ and $w_0 = -n / 2$, while a decision tree would need exponentially many nodes to represent this function.
+
+#### 18.7.3. Multilayer feed-forward neural networks
+
+In 1943, McCulloch and Pitts were well aware that a single threshold unit would not sove all their problems. Their paper proves that such a unit can represent the basic Boolean AND, OR, and NOT and then argues that ***any* desired functionality can be obtained by connecting large numbers of units into (possibly recurrent) networks of arbitrary depth**.
+There was a very small problem: **nobody knew how to train such networks**.
+
+This turns out to be an easy problem if we think of a network the right way --> as a function $h_w(x)$ parameterized by the weights $w$.
+
+Using the simple network shown below as an example, imagine an input vector $\mathbf{x} = (x_1, x_2)$, the activations of the input units are set to $(a_1, a_2) = (x_1, x_2)$. Then, the output at unit 5 is given by
+$$
+a_5 = g(w_{0,5} + w_{3,5}a_{3} + w_{4,5}a_{4})
+$$
+But remember that $a_3$ and $a_4$ are dependant of the output of the activation function in their respective unit, so
+$$
+a_5 = g(w_{0,5} + w_{3,5}g(w_{0,3} + w_{1,3}a_{1} + w_{2,3}a_{2}) + w_{4,5}g(w_{0,4} + w_{1,4}a_{1} + w_{2,4}a_{2}))
+$$
+which is equal to
+$$
+a_5 = g(w_{0,5} + w_{3,5}g(w_{0,3} + w_{1,3}x_{1} + w_{2,3}x_{2}) + w_{4,5}g(w_{0,4} + w_{1,4}x_{1} + w_{2,4}x_{2}))
+$$
+
+![Simple network with two inputs, thwo hidden units, and two outputs](./imgs/simple_network.png)
+
+Thus, we have the **output expressed as a function of the inputs and the weights**. A similar expression holds for unit 6. As long as the derivatives of such expressions with respect to the weights can be calculated, the *gradient-descent loss-minimization* method can 
