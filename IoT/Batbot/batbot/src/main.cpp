@@ -29,39 +29,8 @@ void setup()
 	// delay(2500);
 }
 
-void run()
-{
-	turnOffMotorPins();
-	sensorDistance = readDistance();
-	if (sensorDistance != DESIRED_DISTANCE)
-	{
-		if (sensorDistance > DESIRED_DISTANCE)
-		{
-			turnCar(Side::RIGHT);
-			delay(TURN_TIME);
-			goForward();
-			delay(200);
-			turnCar(Side::LEFT);
-			delay(TURN_TIME);
-		}
-		else
-		{
-			turnCar(Side::LEFT);
-			delay(TURN_TIME);
-			goForward();
-			delay(200);
-			turnCar(Side::RIGHT);
-			delay(TURN_TIME);
-		}
-	}
-	goForward();
-	delay(DIFF_TIME);
-}
-
 void loop()
 {
-	// run();
 	goForward();
 	delay(4000);
-	// testSensor();
 }
