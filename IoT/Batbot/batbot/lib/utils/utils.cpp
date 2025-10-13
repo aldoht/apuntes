@@ -1,16 +1,19 @@
 #include "utils.h"
 #include "../../include/globalVars.h"
 
-void activateBuzzer() {
+void activateBuzzer()
+{
     analogWrite(BUZZER_PIN, BUZZER_POWER);
     delay(BUZZER_TIME);
     analogWrite(BUZZER_PIN, 0);
     return;
 }
 
-void printOutputMessage(Element e, Side s) {
+void printOutputMessage(Element e, Side s)
+{
     String strSide = "";
-    switch (s) {
+    switch (s)
+    {
     case 0:
         strSide = "left.";
         break;
@@ -31,7 +34,8 @@ void printOutputMessage(Element e, Side s) {
     return;
 }
 
-void turnOffMotorPins() {
+void turnOffMotorPins()
+{
     digitalWrite(MOTOR1_PINS[0], LOW);
     digitalWrite(MOTOR1_PINS[1], LOW);
     digitalWrite(MOTOR2_PINS[0], LOW);
@@ -39,15 +43,16 @@ void turnOffMotorPins() {
     return;
 }
 
-void turnOffAllPins() {
+void turnOffAllPins()
+{
     turnOffMotorPins();
     analogWrite(BUZZER_PIN, 0);
     digitalWrite(ECHO_PIN, LOW);
     digitalWrite(TRIGGER_PIN, LOW);
-    digitalWrite(SERVO_PIN, LOW);
     return;
 }
 
-float getUt() {
-    return K_P*error + K_I*sumError + K_D*(error - prevError);
+float getUt()
+{
+    return K_P * error + K_I * sumError + K_D * (error - prevError);
 }
