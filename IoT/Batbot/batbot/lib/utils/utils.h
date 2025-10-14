@@ -7,5 +7,6 @@ void printOutputMessage(Element, Side);
 void turnOffMotorPins(void);
 void turnOffAllPins(void);
 float getUt(void);
+int controlPID(float, float);
 
 #endif

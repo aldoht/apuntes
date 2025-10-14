@@ -5,9 +5,9 @@
 #define DESIRED_DISTANCE 5.0
 #define DIFF_TIME 100
 #define TURN_TIME 100
-#define K_P 100.0
+#define K_P 1.0
 #define K_I 0.0
-#define K_D 0.0
+#define K_D 0.5
 #define MAX_ANALOG 255
 #define BUZZER_POWER 100
 #define BUZZER_TIME 400

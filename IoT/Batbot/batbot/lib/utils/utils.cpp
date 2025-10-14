@@ -60,3 +60,11 @@ float getUt()
 {
     return K_P * error + K_I * sumError + K_D * (error - prevError);
 }
+
+int controlPID(float l_distance, float r_distance)
+{
+    error = l_distance - r_distance;
+    sumError += error;
+    prevError = error;
+    return (int)getUt();
+}
