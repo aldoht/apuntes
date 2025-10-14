@@ -2,7 +2,7 @@
 #define GLOBALVARS_H_
 
 #include <Arduino.h>
-#define DESIRED_DISTANCE 5.0
+#define DESIRED_DISTANCE 4.5
 #define DIFF_TIME 100
 #define TURN_TIME 100
 #define K_P 1.0

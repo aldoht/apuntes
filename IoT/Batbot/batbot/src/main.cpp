@@ -28,15 +28,25 @@ void setup()
 	pinMode(ENABLEB_PIN, OUTPUT);
 
 	turnOffAllPins();
-	setLeftMotorSpeed(MAX_ANALOG);
-	setRightMotorSpeed(MAX_ANALOG);
+	setLeftMotorSpeed(START_VELO);
+	setRightMotorSpeed(START_VELO);
 
 	Serial.begin(9600);
 	delay(2500);
 }
 
+void batbotToTheRescue(void)
+{
+	sensorLeftDistance = readDistance(Side::LEFT);
+	sensorRightDistance = readDistance(Side::RIGHT);
+	sensorCenterDistance = readDistance(Side::FRONT);
+
+	int adj = controlPID(sensorLeftDistance, sensorRightDistance);
+	goForwardWithPID(adj);
+}
+
 void loop()
 {
-	goForward();
-	delay(4000);
+	batbotToTheRescue();
+	delay(100);
 }
