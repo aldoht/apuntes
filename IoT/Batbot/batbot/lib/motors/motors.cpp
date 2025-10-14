@@ -53,7 +53,6 @@ void turnCar(Side s)
 void goForward()
 {
     turnOffMotorPins();
-    delay(500);
     digitalWrite(MOTORA_PINS[0], HIGH);
     digitalWrite(MOTORB_PINS[0], HIGH);
     return;
@@ -62,8 +61,69 @@ void goForward()
 void goBackwards()
 {
     turnOffMotorPins();
-    delay(500);
     digitalWrite(MOTORA_PINS[1], HIGH);
     digitalWrite(MOTORB_PINS[1], HIGH);
+    return;
+}
+
+void goLeftForward()
+{
+    turnOffLeftMotorPins();
+    digitalWrite(MOTORA_PINS[0], HIGH);
+    return;
+}
+
+void goLeftBackwards()
+{
+    turnOffLeftMotorPins();
+    digitalWrite(MOTORA_PINS[1], HIGH);
+    return;
+}
+
+void goRightForward()
+{
+    turnOffRightMotorPins();
+    digitalWrite(MOTORB_PINS[0], HIGH);
+    return;
+}
+
+void goRightBackwards()
+{
+    turnOffRightMotorPins();
+    digitalWrite(MOTORB_PINS[1], HIGH);
+    return;
+}
+
+void goForwardWithPID(int adj)
+{
+    int l_velo = START_VELO - adj;
+    int r_velo = START_VELO + adj;
+
+    if (l_velo > 0)
+    {
+        /*Avance el motor izquierdo hacia adelante con l_velo de rpm*/
+        setLeftMotorSpeed(l_velo);
+        goLeftForward();
+    }
+    else
+    {
+        /*Avance el motor izquierdo hacia atras con -l_velo de rpm*/
+        setLeftMotorSpeed(-1 * l_velo);
+        goLeftBackwards();
+    }
+
+    if (r_velo > 0)
+    {
+        /*Avance el motor izquierdo hacia adelante con r_velo de rpm*/
+        setRightMotorSpeed(r_velo);
+        goRightForward();
+    }
+    else
+    {
+        /*Avance el motor izquierdo hacia atras con -r_velo de rpm*/
+        setRightMotorSpeed(-1 * r_velo);
+        goRightBackwards();
+    }
+
     return;
 }

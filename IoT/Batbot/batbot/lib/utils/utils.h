@@ -5,6 +5,8 @@
 void activateBuzzer(void);
 void printOutputMessage(Element, Side);
 void turnOffMotorPins(void);
+void turnOffLeftMotorPins(void);
+void turnOffRightMotorPins(void);
 void turnOffAllPins(void);
 float getUt(void);
 int controlPID(float, float);

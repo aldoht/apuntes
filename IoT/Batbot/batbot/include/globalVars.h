@@ -20,6 +20,7 @@
 #define C_TRIGGER_PIN 2
 #define ENABLEA_PIN 10
 #define ENABLEB_PIN 11
+#define START_VELO MAX_ANALOG / 2
 const int MOTORA_PINS[2] = {13, 8};
 const int MOTORB_PINS[2] = {9, 12};
 extern float sensorLeftDistance;

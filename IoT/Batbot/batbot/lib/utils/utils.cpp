@@ -34,12 +34,24 @@ void printOutputMessage(Element e, Side s)
     return;
 }
 
-void turnOffMotorPins()
+void turnOffLeftMotorPins()
 {
     digitalWrite(MOTORA_PINS[0], LOW);
     digitalWrite(MOTORA_PINS[1], LOW);
+    return;
+}
+
+void turnOffRightMotorPins()
+{
     digitalWrite(MOTORB_PINS[0], LOW);
     digitalWrite(MOTORB_PINS[1], LOW);
+    return;
+}
+
+void turnOffMotorPins()
+{
+    turnOffLeftMotorPins();
+    turnOffRightMotorPins();
     return;
 }
 
