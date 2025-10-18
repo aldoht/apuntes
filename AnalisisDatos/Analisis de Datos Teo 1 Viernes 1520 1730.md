@@ -251,3 +251,117 @@ Tecnologías, aplicaciones y prácticas que se utilizan para recolectar, integra
 8. Entrega y seguimiento
 	- Proporcionar el gráfico.
 	- Ofrecer soporte adicional.
+
+## 2025-10-17
+
+La regresión lineal simple nos da una línea recta.
+La regresión lineal múltiple nos da un **hiperplano** ([[Sistemas Inteligentes Teo 1 Viernes 1310 1520#2025-09-05]]) en un espacio con muchas dimensiones.
+
+### Uso de métricas
+
+Las métricas tipo MSE, RMSE, MAE y $R^2$ se tiene que hacer con el conjunto de **test**.
+
+MSE/RMSE/MAE: 0 --> $\infty$ (mientras sea menor mejor)
+$R^2$: 0 --> 1 (mientras mas cerca al 1 mejor)
+
+### Regresión lineal múltiple
+
+$$
+\hat{y} = b_0 + \sum_{i=1}^{k}b_ix_i = b_0 + b_1x_1 + ... + b_kx_k
+$$
+![Tipos de regresion](./tiposDeRegresion.jpg)
+
+#### Ordinary Least Squares (OLS)
+
+Modelo "por defecto" de cualquier regresión lineal. En cada observación hay una diferencia entre lo que el modelo predice y lo que realmente ocurre, esa diferencia es llamada **error individual**:
+$$
+e_i = y_i - \hat{y}_i
+$$
+Este residuo puede ser positivo o negativo (subestima o sobreestima). Si simplemente se suman los residuos, estos se cancelarían; es por esto que en el OLS se *elevan al cuadrado* los errores y posteriormente se suman, esa cantidad es llamada **suma de errores cuadráticos (SSE)**:
+$$
+SSE = \sum_{i=1}^{n}{e_i^2} = \sum_{i=1}^{n}{(y_i - \hat{y}_i)^2}
+$$
+El OLS busca los coeficientes $b$ que **minimizan la suma total de errores cuadrados**.
+
+Para ello se deriva la expresión con respecto a cada $b_i$ y se igualan a cero, resolviendo el sistema resultante se llega a la solución exacta en forma matricial:
+$$
+\mathbf{b} = \mathbf{(X^T X)^{-1}X^TY}
+$$
+
+Este método **NO ES ITERATIVO**, a diferencia de los otros tres que comienzan con una estimación inicial, calculan el error, ajustan los coeficientes y vuelven a medir el error en un ciclo hasta que los cambios dejan de ser significativos.
+
+#### Ridge
+
+También llamada **L2 Regularization** es una versión modificada de la regresión lineal múltiple. Se usa principalmente cuando tenemos muchos predictores o variables muy correlacionadas entre sí.
+
+En lugar de minimizar solo el $SSE$, Ridge minimiza una función que combina dos partes:
+$$
+\sum_{i=1}^{n}{(y_i - \hat{y}_i)^2} + \lambda \sum_{j=1}^{k}{b_j^2}
+$$
+El primer término es el mismo del OLS y mide qué tan bien el modelo se ajusta a los datos, el segundo término es la penalización que se aplica a los coeficientes grandes.
+
+El parámetro $\lambda$ controla la intensidad de la penalización (los coeficientes se encogen hacia cero). El objetivo es **encontrar un equilibrio entre ajuste y estabilidad**, esta regresión no busca solo que el modelo prediga bien los datos actuales, sino que también sea más robusto frente a nuevas observaciones.
+
+En la práctica, Ridge **suaviza** los coeficientes (nunca los vuelve cero pero los reduce lo suficiente para evitar que una variable domine el modelo o que los pesos se disparen por correlaciones internas).
+
+#### Lasso
+
+Significa *Least Absolute Shrinkage and Selection Operator* y es otro tipo de modelo lineal regularizado. Busca y hace lo mismo que [[#Ridge]] pero hace que algunos valores que no aporten nada al modelo se vayan a cero debido a su penalización:
+$$
+\sum_{i=1}^{n}{(y_i - \hat{y}_i)^2} + \lambda \sum_{j=1}^{k}{|b_j|}
+$$ El segundo término es la **penalización L1** basada en el valor absoluto de los coeficientes, ¿la consecuencia? **Algunos coeficientes pueden volverse exactamente cero**. En otras palabras, Lasso *selecciona variables* eliminando aquellas que no aportan información útil.
+
+Es por esto que se dice que Lasso hace *regularización* y *selección de variables*.
+
+#### Elastic Net
+
+Combina [[#Ridge]] y [[#Lasso]] en su función de costo (sus penalizaciones) y los varía para aprovechar sus ventajas y compensar sus debilidades: busca un modelo estable como Ridge y una selección de variables como Lasso:
+$$
+\sum_{i=1}^{n}{(y_i - \hat{y}_i)^2} + \lambda_1 \sum_{j=1}^{k}{|b_j|} + \lambda_2 \sum_{j=1}^{k}{b_j^2}
+$$
+
+En la práctica, se controla la mezcla entre ambas penalizaciones usando un parámetro $\alpha$ que define qué proporción de cada una se usa.
+
+### Visualización
+
+Se introduce una variable que suma todas las demas --> Correlacion alta con cada variable.
+Se introducen dos variables nuevas con poco ruido gaussiano --> Variables redundantes o mal definidas.
+
+Resultados? OLS, Lasso y Ridge se sobreajustan y tienen valores "buenos" en las métricas, mientras que Elastic Net no (sin embargo no hace un buen ajuste, aunque generalizado).
+
+### Multicolinealidad
+
+Problema de *multicolinealidad* --> Una variable "hace trampa" porque absorbe casi todo el peso del modelo (es decir, se olvidan todas las demás variables por la alta correlación con la feature de interés) --> Las demás variables obtienen coeficientes negativos o distorsionados (ilógico porque el modelo está "compensando" redundancias internas).
+
+La **multicolinealidad** ocurre cuando una variable explicativa puede ser expresada casi como una **combinación lineal de otras**.
+
+Este es un problema porque los coeficientes se vuelven **inestables**, pequeños cambios en los datos producen grandes cambios en los coeficientes; así, el modelo **no logra distinguir cuál variable explica la variación** de la variable objetivo.
+
+#### Factor de Inflación de Varianza
+
+Para detectar la *multicolinealidad*, se usa el **Variance Inflation Factor (VIF)**. Este índice mide cuánto se infla la varianza de un coeficiente estimado debido a la multicolinealidad.
+$$
+{VIF}_i = \frac{1}{1-R^2_i}
+$$
+donde $R^2_i$ es el coeficiente de determinación al **regresar la variable** $X_i$ contra todas las demás variables predictoras. Si $X_i$ está altamente correlacionada con las demás, $R^2_i$ será alto, y por tanto el VIF también.
+
+| VIF    | Interpretación               | Acción recomendada                         |
+| ------ | ---------------------------- | ------------------------------------------ |
+| 1 - 5  | Correlación baja o aceptable | No requiere intervención                   |
+| 5 - 10 | Multicolinealidad moderada   | Revisar relaciones y redundancias          |
+| > 10   | Multicolinealidad severa     | Eliminar, combinar o regularizar variables |
+
+
+### Data Leakage
+
+Ocurre cuando un modelo usa información durante el entrenamiento que **no estaría disponible al momento de hacer la predicción**, haciéndolo parecer preciso hasta que es usado en aplicaciones reales (*target leakage*).
+
+Un ejemplo es un dataset que contiene información sobre fraudes de tarjetas de crédito, un modelo podría hacer buenas predicciones en la validación si es que existe una columna de devolución de fondos ya que tendría una alta correlación con la variable que se quiere predecir. Sin embargo, este valor (verdadero o falso) no estaría disponible al momento de hacer la predicción, ocasionando un pésimo rendimiento en la vida real.
+
+También es cuando datos de entrenamiento y validación son usados para crear un modelo, frecuentemente debido a una mala separación o preprocesamiento de los datos.
+
+Un ejemplo de esto es la normalización de un conjunto de datos *antes de* separarlo, al hacerlo indirectamente se "sesga" al modelo ya que indirectamente "verá" información del conjunto de prueba durante el entrenamiento ("hace trampa"), lo que reduce su habilidad de generalizar.
+
+### Consultas via mail
+
+(pendiente)
