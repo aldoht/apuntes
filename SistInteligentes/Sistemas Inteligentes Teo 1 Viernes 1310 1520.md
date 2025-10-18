@@ -263,7 +263,7 @@ El modelo KNN tiene 2 problemas principales:
 
 Actividad Final: https://colab.research.google.com/drive/1qKkQ27kTGw0JlJ_AXglPLya4cYh5lATM?usp=sharing
 
-## 2025-05-09
+## 2025-09-05
 
 Un **hiperplano óptimo** hace referencia a la recta que separa dos espacios (muetras) en 2 o más dimensiones.
 
@@ -612,3 +612,130 @@ Lo sabe según la función de pérdida (es la distancia de la predicción con la
 El algoritmo tiene que ir bajando hasta llegar al vértice, ¿cómo? Mediante el **gradiente**; cuando disminuye va hacia el menor cambio posible. El algoritmo calcula el gradiente de la función de pérdida para darle sentido negativo y reducir así la diferencia entre la predicción y la etiqueta real.
 
 Nota: La red debe tener tantas salidas como clases que debe clasificar. One-Hot Encoding, todas son 0 excepto una.
+
+## 2025-10-17
+
+### Problema XOR
+
+La insuficiencia del perceptrón simple demostrada por Minsky y Papert en 1969 conducieron al **primer invierno de la IA**.
+
+La solución a este problema fueron las redes multicapa (MLP, [[ArtificialIntelligenceAModernApproach#18.7.3. Multilayer feed-forward neural networks]]) con capas ocultas y funciones de activación no lineales. La capa oculta **transforma matemáticamente el espacio de entrada no separable** a uno nuevo donde las clases *sí pueden ser divididas*.
+
+Este fue un catalizador histórico para el desarrollo del algoritmo de retropropagación ([[#Descenso de Gradiente]]).
+
+### Entrenamiento
+
+Pasos:
+1. Feed Forward --> Obtener predicciontes $\hat{y}$
+2. Comparar $\hat{y}$ con $y$ (Loss Function), como visto en [[#Funcion de Coste]]
+3. Ajustar los pesos, usando el [[#Descenso de Gradiente]]
+4. Editar los pesos con [[#Backpropagation]]
+
+#### Feed Forward
+
+Proceso de predicción:
+1. Función de combinacion lineal (*net input* en [[Theory for final project#Artificial neuron]])
+	- $\mathbf{X^T W} + b$
+2. Función de activación (introduce la no linealidad al modelo)
+	- Sigmoide (reduce salidas a probabilidades)
+	- Tanh (centra la salida en cero)
+	- ReLU (mitiga [[#Desvanecimiento del gradiente]])
+	- Softmax (distribución de probabilidad)
+3. Propagación a la siguiente capa
+	- La salida $A_j$ sirve como entrada para la siguiente capa, repitiendo el proceso.
+
+Resultado: La red produce una salida que representa su predicción en base a los parámetros actuales.
+
+#### Funcion de Coste
+
+##### Objetivo Fundamental del Entrenamiento
+Minimizar la funcion de coste **ajustando los parametros** (pesos $\mathbf{W}$ y sesgo $\mathit{b}$) a traves de multiples epocas (iteraciones sobre el conjunto de entrenamiento).
+
+#### Descenso de Gradiente
+
+Es una tecnica de optimizacion central que sigue la siguiente regla de actualizacion
+$$
+W := W - \alpha \frac{\partial L}{\partial W}
+$$
+donde $\alpha$ es el *learning rate* (hiperparametro).
+
+Si $\alpha$ es muy alto --> Descenso inestable, saltos alrededor del minimo, no converge
+Si $\alpha$ es muy bajo --> Convergencia lenta, muchas iteraciones
+
+#### Backpropagation
+
+Es un *metodo* para calcular el gradiente de la funcion de coste respecto a los pesos en todas las capas de manera eficiente. Dado que la funcion de coste es una *composicion* de funciones anidadas, el calculo de la derivada se realiza mediante la **regla de la cadena**, que permite calcular cómo un pequeño cambio en un peso en una capa temprana afecta la pérdida final.
+
+### Desvanecimiento del gradiente
+
+Es un problema que ocurre cuando se usan funciones de activación como la sigmoide o $\tanh$ en redes profundas. Estas funciones tienen *derivadas muy pequeñas* en regiones saturadas, entonces
+
+**El cambio se vuelve INSIGNIFICANTE**
+**La información se PIERDE**
+**El aprendizaje se DETIENE**
+
+La alternativa --> Función de activación ReLU (Rectified Linear Unit)
+$$
+ReLU(x) = \max(0, x)
+$$
+Esta función tiene una *derivada constante* de 1, por lo que mitiga el desvanecimiento y permite entrenar redes muy profundas.
+
+### Optimizadores Avanzados
+
+El descenso de gradiente estocástico (SGD) es el concepto básico pero los optimizadores modernos mejoran la velocidad, estabilidad y calidad de la convergencia. Un ejemplo de ellos es **ADAM (Adaptive Moment Estimation)** que tiene dos componentes:
+- Momentum
+	- Acelera el descenso en direcciones consistentemente positivas (tendencia general).
+- RMSprop
+	- Adapta la tasa de aprendizaje individualmente para cada parámetro
+
+Sus ventajas son su naturaleza adaptativa, su efectividad en problemas con escalas distintas, su eficiencia al converger y su robustez frente a diferentes tipos de problemas.
+
+### Generalización
+
+Es la capacidad de la red para demostrar alto rendimiento en datos nunca vistos. Para revisar la *generalización* se usan las **curvas de aprendizaje**, así se obtiene un monitoreo continuo de métricas de error y precisión en conjuntos de entrenamiento y validación.
+
+No generalización:
+- Overfitting
+	- El modelo memoriza el ruido del entrenamiento
+		- Error de entrenamiento bajo
+		- Error de validación alto
+- Underfitting
+	- El modelo es demasiado simple
+		- Error de entrenamiento alto
+		- Error de validación alto
+
+#### Early Stopping
+
+Hay técnicas para evitar estos problemas, el método más directo es el **Early Stopping**.
+
+Esta técnica **detiene el entrenamiento** cuando el rendimiento en validación comienza a deteriorarse, previniendo que el modelo continúe ajustándose al ruido.
+
+### Técnicas de regularización
+
+Estas técnicas de regularización imponen *restricciones* a la red para desalentar la complejidad excesiva y mejorar la generalización.
+
+- Regularización L2 - **Weight Decay** ([[Analisis de Datos Teo 1 Viernes 1520 1730#Ridge]])
+	- Penalización cuadrática en la *Loss Function*
+	- Reduce la magnitud de los pesos (los fuerza cerca de cero?)
+- Regularización L1 - **LASSO** ([[Analisis de Datos Teo 1 Viernes 1520 1730#Lasso]])
+	- Penalización basada en valor absoluto
+	- Promueve dispersidad (pesos irrelevantes --> 0?)
+- Dropout
+	- Ignora aleatoriamente neuronas durante el entrenamiento
+	- Previene la *codependencia neuronal*
+
+Estas técnicas se pueden combinar, como L2 con Dropout --> Evita que cualquier peso sea excesivamente grande y cualquier neurona sea excesivamente crucial. Estrategia práctica:
+1. Usar L2 con coeficiente pequeño (0.001-0.01)
+2. Aplicar Dropout (0.2-0.5) en capas densas
+3. Monitorear curvas de validación para ajustar
+
+### Ciclo completo de aprendizaje
+
+1. Forward Propagation
+	1. Calcular la predicción $\hat{y}$ a través de todas las capas.
+2. Cálculo de coste
+	1. Medir error con la función de pérdida $L$.
+3. Backpropagation
+	1. Calcular gradientes $\frac{\partial L}{\partial W}$ usando la regla de la cadena.
+4. Actualización de parámetros
+	1. $W := W - \alpha \frac{\partial L}{\partial W}$ (con optimizador ADAM)
