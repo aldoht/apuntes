@@ -44,7 +44,7 @@ In general, there is a *tradeoff* between complex hypotheses that fit the traini
 
 Neural networks, connectionism, parallel distributed processing, and neural computation --> All the same.
 
-Roughly speaking, the neuron shown in the image bewlo "fires" when a linear combination of its inputs exceeds some (hard or soft) threshold, which means it implements a linear classifier.
+Roughly speaking, the neuron shown in the image below "fires" when a linear combination of its inputs exceeds some (hard or soft) threshold, which means it implements a linear classifier.
 
 ![[Pasted image 20251008121714.png]]
 
@@ -112,4 +112,59 @@ $$
 
 ![Simple network with two inputs, thwo hidden units, and two outputs](./imgs/simple_network.png)
 
-Thus, we have the **output expressed as a function of the inputs and the weights**. A similar expression holds for unit 6. As long as the derivatives of such expressions with respect to the weights can be calculated, the *gradient-descent loss-minimization* method can 
+Thus, we have the **output expressed as a function of the inputs and the weights**. A similar expression holds for unit 6. As long as the derivatives of such expressions with respect to the weights can be calculated, the *gradient-descent loss-minimization* ([[Sistemas Inteligentes Teo 1 Viernes 1310 1520#Descenso de Gradiente]]) method can be used to train the network.
+
+And because the function represented by a network can be highly nonlinear-composed of **nested nonlinear soft threshold functions** we can see NNs as a tool for performing **nonlinear regression**.
+
+Soft-threshold (1 output unit) --> Ridge (2 hidden units) --> Bump (4 hidden units)
+
+#### 18.7.4. Learning in multilayer networks
+
+When a multilayer network has multiple outputs we should think of it (the network) as implementing a vector function $\mathbf{h_W}$ rather than a scalar function $\mathit{h_W}$.
+
+Whereas a perceptron network decomposes into $m$ separate learning problems for an $m$-output problem, this decomposition fails in a multilayer network.
+
+Assign blame
+Essence: use the chain rule to compute gradients efficiently
+
+Activations in layers depend on the previous layer's weights, so update on those weights will depende on errors in said activations. This dependency is very simple in case of any loss function that is *additive* across the components of the error vector $\mathbf{y - h_w(x)}$. For the $L_2$ loss we have for any weight $w$:
+$$
+\frac{\partial}{\partial w} Loss(\mathbf{w}) = \frac{\partial}{\partial w} |\mathbf{y - h_w(x)}|^2 = \sum_{k}{\frac{\partial}{\partial w} (y_k - a_k)^2} 
+$$
+where the index *k* ranges over nodes in the **output layer**. Each term in the summation is just the **gradient of the loss for the k-th output**, computed as if the other outputs did not exist. Hence, we can decompose an $m$-output learning problem into $m$ learning problems, provided we remember to add up the gradient contributions from each of them when updating the weights.
+
+The major complication comes from adding **hidden layers** to the network. Whereas the error $\mathbf{y - h_w(x)}$ at the output layer is clear, the error at the hidden layers seems mysterious because the **training data do not say what value the hidden nodes should have**.
+
+Fortunately, we can **backpropagate** the error from the output layer to the hidden layers. It emerges directly from a derivation of the **overall error gradient**.
+
+At the output layer, the weight-update rule is just
+$$
+w_i := w_i + \alpha(y-h_w(x)) \times h_w(x) \times (1-h_w(x)) \times x_i
+$$
+We have multiple output units, so let $Err_k$ be the $k$th component of the error vector $\mathbf{y - h_w(x)}$. We will also find it convenient to define a modified error $\Delta_k = Err_k \times g'(in_k)$, so that the weight update rule becomes
+$$
+w_{j,k} := w_{j,k} + \alpha \times a_j \times \Delta_k
+$$
+To update the connections between the input units and the hidden units, we need to define a quantity *analogous to the error term for output nodes*. Here is where we do the error backpropagation. **The idea is that a hidden node $j$ is "responsible" for some fraction of the error $\Delta_k$ in each of the output nodes to which it connects**. Thus, the $\Delta_k$ values are divided according to the strength of the connection between the hidden node and the output node and are propagated back to provide the $\Delta_j$ values for the hidden layer
+$$
+\Delta_j = g'(in_j) \sum_k{w_{j,k}\Delta_k}
+$$
+So the weight update rule for weights between the inputs and hidden layer is essentially identical to the update rule for the output layer
+$$
+w_{i,j} := w_{i,j} + \alpha \times a_i \times \Delta_j
+$$
+
+##### Backpropagation Summary
+
+- Compute the $\Delta$ values for the output units using the observed error.
+- Starting with the output layer, repeat the following for each layer in the network, until the earliest hidden layer is reached:
+	- Propagate the $\Delta$ values back to the previous layer.
+	- Update the weights between the two layers.
+
+#### 18.7.5. Learning neural network structures
+
+Like all statistical models, neural networks are subject to **overfitting** when there are too many *parameters* in the model. If we stick to fully connected networks, the only choices to be made concern the **number of hidden layers and their sizes**.
+
+The **cross-validation** techniques are used for this.
+
+To consider networks that are not fully connected, the **optimal brain damage** algorithm begins with a fully connected network and removes connections from it. After the first training, it identifies an optimal selection of connections that can be dropped; then, the network is retrained, and if its performance has not decreased then the process is repeated. It may also remove units that do not contribute much to the result.
