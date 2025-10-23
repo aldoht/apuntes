@@ -364,4 +364,19 @@ Un ejemplo de esto es la normalización de un conjunto de datos *antes de* separ
 
 ### Consultas via mail
 
-(pendiente)
+1. ¿Hay una razón por la que la variable *speed* tiene un mayor VIF que la variable total?
+	- El VIF no depende *solo* de una correlación aislada, sino de **todas las correlaciones simultáneas** entre una variable y las demás del modelo; así que es posible que *speed* esté correlacionada con varias variables al mismo tiempo, por lo que eleva su VIF.
+2. ¿La regresión Lasso (y por ende en cierta parte la Elastic Net) sirven como reducción de dimensionalidad?
+	- Efectivamente, ya que *Lasso* penaliza los coeficientes de manera que algunos se reducen a cero, realizando una **selección automática** de variables.
+	- Hay otros métodos como *random forest* que tiene algo llamado *feature importance* que permite estimar de otra manera cuáles son las variables más relevantes.
+	- También existe algo llamado *SHAP* que es una librería para realizar inteligencia artificial explicable (XAI) que usa cálculos de teoría de juegos para averiguar qué variables tienen más influencia en las predicciones de las técnicas de machine learning. Este framework permite que *cualquier* algoritmo de aprendizaje automático sea esencialmente "explicado" "al proporcionar visualizaciones intuitivas e interactivas que apuntan a mostrar qué características son más relevantes para una determinada predicción y para el modelo en su conjunto". (Consultable en https://es.wikipedia.org/wiki/SHAP)
+3. ¿En qué basa su criterio en elegir la mediana o media (o en realidad cualquier medida de tendencia central) para la imputación de valores?, ¿cómo saber si lo que decidí es algo "correcto"?
+	- Depende del tipo de variable y la distribución de los datos:
+		- Simétricos y sin valores extremos --> media
+		- Sesgos o outliers --> mediana
+	- Lo importante es observar el efecto de la imputación, por ejemplo viendo si las distribuciones y el desempeño del modelo se mantienen estables después del proceso.
+	- Se podrían generar dos datasets: dataset_media y dataset_mediana, haciendo una regresión Lasso podemos elegir el "mejor" de acuerdo al que tenga mejores métricas RMSE, MSE, MAE y $R^2$ (mejor rendimiento).
+	- Por simplicidad se elige una u otra de manera arbitraria, pero hay un pensamiento *fuera de la caja* que consiste en usar métodos de regresión para realizar la imputación, esta idea se llama **iterative imputer**. Posteriormente se usa esa regresión para hacer otra regresión (explota la cabeza).
+
+Consultar curso de data science https://drive.google.com/drive/folders/1FTVWhJxuonzamFkv0HjAsT6g6iGba5Kt?usp=drive_link
+
