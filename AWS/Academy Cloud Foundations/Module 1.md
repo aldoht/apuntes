@@ -1,5 +1,5 @@
-# Módulo 1
 ## Intro
+
 **Temas**
 - Introducción a la informática en la nube
 - Ventajas de la informática en la nube
@@ -7,6 +7,7 @@
 - Marco de adopción de la nube de AWS (CAF de AWS)
 
 ## Sección 1
+
 Cloud computing -> Using another computer to process information
 
 La informática en la nube es la entrega bajo demanda de potencia de cómputo, bases de datos, almacenamiento, aplicaciones y otros recursos a través de internet con un sistema de precios de pago por uso. Se ejecuta en servidores desplegados por todo el mundo.
@@ -14,6 +15,7 @@ La informática en la nube es la entrega bajo demanda de potencia de cómputo, b
 La informática en la nube permite dejar de considerar la infraestructura como *hardware* y en cambio verla (y usarla) como *software*.
 
 #### Modelo de informática tradicional -> Infraestructura como hardware
+
 Las soluciones de hardware:
 - Requieren espacio, personal dedicado, planificación e inversión.
 - Tienen un ciclo largo de adquisición de hardware (no montas un servidor de un día para otro).
@@ -23,6 +25,7 @@ Las soluciones de hardware:
 - Es débil frente a cambios (podría decirse que difícil de escalar) ya que requieres tiempo, esfuerzo y dinero para implementar una nueva solución.
 
 #### Modelo de informática en la nube -> Infraestructura como software
+
 Las soluciones de software:
 - Son flexibles (permiten seleccionar los servicios necesarios y usarlos según su demanda).
 	- Los recursos pueden ser tratados como temporales y desechables.
@@ -32,6 +35,7 @@ Las soluciones de software:
 - Solo pagas por lo que usas y cuando lo usas.
 
 #### Modelos de servicio en la nube
+
 Hay tres modelos principales:
 1. IaaS (Infraestructure as a Service)
 	- Por lo general proporciona acceso a las características de redes, equipos (virtuales o dedicados), almacenamiento.
@@ -50,6 +54,7 @@ Hay tres modelos principales:
 ![[Pasted image 20250829105417.png]]
 
 #### Modelos de implementación de informática en la nube
+
 Hay tres modelos principales de implementación de informática en la nube. Cada uno representa el entorno en la nube en el que se pueden implementar las aplicaciones.
 1. Nube -> "Todo en la nube"
 	- Aplicación totalmente implementada en la nube.
@@ -69,6 +74,94 @@ Hay tres modelos principales de implementación de informática en la nube. Cada
 ![[Pasted image 20250829110619.png]]
 
 #### Similitudes entre AWS y TI tradicional
+
 ![[Pasted image 20250829111732.png]]
 
 ## Sección 2
+
+### Ventajas de la informatica en la nube
+
+1. Sustituir inversion de capital por gastos variables (pagas por lo que usas)
+2. Adaptarse rapidamente a las necesidades de las aplicaciones
+3. Bajos precios en AWS
+4. Evitar asumir estimaciones sobre capacidad
+5. Aumenta la velocidad y agilidad al obtener recursos
+6. Menos dinero en la ejecucion y mantenimiento de datacenters --> Mas dinero para proyectos
+7. Escala mundial facilmente
+
+## Seccion 3
+
+### Introduccion a AWS
+
+Un servicio web es una aplicacion que se provee a traves de internet usando un formato estandar para la entrada y salida de datos (xml, json) para la interaccion con el servidor a traves de una API.
+
+AWS es una plataforma en la nube que ofrece varios productos globales basados en la nube, proporciona acceso bajo demanda a recursos informaticos (almacenamiento, red, bdd, etc); ofrece flexibilidad y solo se paga por lo consumido. 
+
+**Son como bloques que se arman juntos para proporcionar soluciones y que despues pueden ser ajustados.**
+
+Hay distintas categorias para los servicios que proporciona AWS, la seleccion depende de los objetivos empresariales y requisitos tecnologicos.
+
+#### Formas de interactuar con AWS
+
+1. Consola de administracion de AWS usando un navegador
+2. AWS CLI permite acceso a los servicios mediante scripts y comandos
+3. SDK permite acceso a los servicios directamente desde el codigo (como Java, Python, etc)
+
+Todas funcionan como una REST API.
+
+## Seccion 4
+
+### Migracion a la nube de AWS - Marco de adopcion de la nube (CAF de AWS)
+
+Personas, procesos y tecnologias deben estar en la misma pagina. Los lideres en tecnologia deben comprender estas tres cosas:
+1. El estado actual de la organizacion
+2. El estado objetivo de la organizacion
+3. La transicion necesaria para lograr el estado objetivo
+
+El CAF de AWS ofrece orientacion y buenas practicas a fin de ayudar a las organizaciones a crear un enfoque para la informatica en la nube para acelerar la adopcion satisfactoria de la nube. El CAF se organiza en seis perspectivas, y estas se componen en capacidades (responsabilidades, que areas requieren atencion?):
+1. Enfoque en capacidades empresariales
+	1. Negocio
+		- Asegurarse de que los objetivos empresariales se alinean con sus estrategias y objetivos de TI.
+		- Finanzas de TI
+		- Estrategia de TI
+		- Realizacion de beneficios
+		- Administracion de riesgos empresariales
+	2. Gente
+		- Evaluar las estructuras y roles de la organizacion para identificar areas de oportunidad, ayudando a generar cambios en la organizacion para hacerla mas agil.
+		- Administracion de recursos
+		- Administracion de incentivos
+		- Administracion de la carrera profesional
+		- Administracion de la formacion tecnica
+		- Administracion de los cambios en la organizacion
+	3. Gobernanza
+		- Centrarse en que las habilidades y procesos ajusten la estrategia y objetivos de la TI con la estrategia y objetivos empresariales, maximizando el valor de negocio de inversion y minimizando los riesgos comerciales.
+		- Administracion de portafolios
+		- Administracion de proyectos y programas
+		- Mencion del rendimiento empresarial
+		- Administracion de licencias
+2. Enfoque en capacidades tecnicas
+	1. Plataforma
+		- Entender y comunicar la naturaleza de los sistemas de TI y sus relaciones. Describir la arquitectura del entorno objetivo detalladamente.
+		- Aprovisionamiento de informatica
+		- Aprovisionamiento de red
+		- Aprovisionamiento de almacenamiento
+		- Aprovisionamiento de bases de datos
+		- Arquitectura de sistemas y soluciones
+		- Desarrollo de aplicaciones
+	2. Seguridad
+		- Garantizar que la organizacion cumpla sus objetivos de seguridad.
+		- Administracion de identidad y acceso
+		- Control de deteccion
+		- Seguridad de la infraestructura
+		- Proteccion de datos
+		- Respuesta a incidentes
+	3. Operaciones
+		- Definir como se realizaran los negocios diarios, trimestrales y anuales.
+		- Monitoreo de servicios
+		- Monitoreo del rendimiento de la aplicacion
+		- Administracion de inventario de recursos
+		- Administracion de versiones/cambios
+		- Informes y analisis
+		- Continuidad empresarial (recuperacion de desastres)
+		- Catalogo de servicios de TI
+
