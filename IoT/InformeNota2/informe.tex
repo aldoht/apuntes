@@ -1,0 +1,135 @@
+\documentclass{article}
+\newcommand{\templatepath}{../../LaTeX/ubo-template/}
+\usepackage{\templatepath ubo}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tocloft}
+\setlength{\cftbeforesecskip}{0.5em}
+\setlength{\cftbeforesubsecskip}{0.2em}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\itshape}
+\renewcommand{\cftdot}{·}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue,
+	citecolor=black,
+	bookmarks=true,
+	bookmarksopen=true,
+	bookmarksnumbered=true,
+	pdftitle={Auto controlado por PID},
+	pdfauthor={Aldo Hernández}
+}
+
+\begin{document}
+	% Portada
+	\MakeHeader{Programación IoT}{Sección: TEO 1}{Profesor Agustín Díaz}{Auto controlado por PID}{27 de octubre de 2025}
+	\vfill
+	
+	\AuthorRowTwo
+	{\CustomAuthor{Aldo Hernández}{aldo.hernandezt@uanl.edu.mx}{Universidad Autónoma de Nuevo León}{San Nicolás de los Garza, Nuevo León, MX}}
+	{\CustomAuthor{Diego Zavalla}{dzavalla@pregrado.ubo.cl}{Universidad Bernardo O'Higgins}{Universidad Bernardo O'Higgins, Santiago, CL}}
+	
+	\AuthorRowTwo
+	{\CustomAuthor{Isaías Márquez}{imarquez@pregrado.ubo.cl}{Universidad Bernardo O'Higgins}{Universidad Bernardo O'Higgins, Santiago, CL}}
+	{\CustomAuthor{Patricio Gálvez}{patriciogalvez@pregrado.ubo.cl}{Universidad Bernardo O'Higgins}{Universidad Bernardo O'Higgins, Santiago, CL}}
+	
+	\newpage
+	
+	% Contenido
+	\section{Introducción}
+	
+	Este proyecto se desarrolla para la competencia interna de resolución de un laberinto, mediante distintas etapas se busca construir un auto que pueda moverse a través de los diferentes caminos para lograr su resolución.
+	
+	En este informe se incluye la construcción del auto junto con las funcionalidades básicas para el movimiento, además de algunas observaciones y posibles mejoras.
+	
+	\section{Hardware}
+	
+	\subsection{Materiales}
+	
+	Para el desarrollo de este proyecto se utilizaron los siguientes materiales:
+	\begin{itemize}
+		\item 1 Arduino UNO R3
+		\item 1 Sensor Shield V5.0
+		\item 1 Módulo L298N
+		\item 2 motores DC
+		\item 3 sensores ultrasónicos HC-SR04
+		\item 1 batería de 9V
+		\item 1 interruptor
+		\item Cables
+		\item Jumpers
+	\end{itemize}
+	
+	Además, se utilizó una plataforma de plástico para el chasis del auto junto con trozos de cartón para sujetar los sensores.
+	
+	\subsection{Armado}
+	
+	El auto fue ensamblado como se observa en la imagen \ref{fig:auto_ensamblado}. El módulo L298N se colocó en la parte superior (hacia el frente) del chasis mientras que el Arduino UNO R3 (que tiene el Sensor Shield V5.0 puesto), el interruptor y la batería se incluyeron en la parte inferior; los sensores fueron instalados al frente y uno por cada dirección.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.3\linewidth]{./images/batbot.jpeg}
+		\caption{Auto ensamblado.}
+		\label{fig:auto_ensamblado}
+	\end{figure}
+	
+	En versiones anteriores del auto, se usaban 4 baterías AA colocadas por debajo del chasis cuya salida daba a un interruptor que estaba conectado al módulo L298N. Esta funcionalidad del interruptor se busca implementar en la versión final del proyecto, de manera que la batería de 9V esté conectada al \textit{switch} y éste al módulo L298N.
+	
+	Una vez que se terminó el ensamblado, los cables fueron asegurados con cinta aislante y soldados a sus respectivos componentes para evitar falsos contactos y ruido en las señales.
+	
+	\section{Evidencia}
+	
+	El video del auto funcionando se puede revisar en el siguiente enlace de \href{https://drive.google.com/file/d/1QjmIibSW2QcmgmMtXkqVvTw6CrGmzxzl/view?usp=sharing}{Google Drive}. Se simuló una especie de pasillo juntando cajas de cartón para que el auto pasase entre ellas; la desviación final ocurrió debido a que los sensores del auto detectaron las paredes muy lejos (salió del espacio controlado con las cajas de cartón).
+	
+	\section{Código}
+	
+	En la figura \ref{fig:frag_codigos} se pueden observar pequeños fragmentos del código utilizado. En la subfigura \ref{subfig:pins} se observan los pines conectados desde el Arduino UNO R3 a distintos componentes del auto para la transmisión de corriente y señales, mientras que en la subfigura \ref{subfig:params} se muestran las constantes configuradas para el PID encontrados mediante \textbf{prueba y error}.
+	
+	Finalmente en la subfigura \ref{subfig:calculations} se enseñan los últimos cálculos realizados durante el ciclo de ejecución del código, estos se encargan de modificar los valores de los demás parámetros del PID para ajustar la velocidad y dirección de cada motor.
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./images/pines.png}
+			\caption{Pines conectados al Arduino UNO R3.}
+			\label{subfig:pins}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./images/parametros.png}
+			\caption{Parámetros actuales para el uso de PID.}
+			\label{subfig:params}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.65\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./images/calculos.png}
+			\caption{Cálculos realizados con relación al PID.}
+			\label{subfig:calculations}
+		\end{subfigure}
+		
+		\caption{Fragmentos del código utilizado.}
+		\label{fig:frag_codigos}
+	\end{figure}
+	
+	Todo el código usado en el auto se puede consultar en la siguiente \href{https://hst.sh/bexuxorita.cpp}{liga}. Cuando tengamos una versión final, se trasladará a un proyecto más estructurado que se podrá consultar en el siguiente \href{https://github.com/aldoht/apuntes/tree/master/IoT/Batbot/batbot}{repositorio} que actualmente cuenta con una versión antigua del código utilizado; este proyecto está estructurado en diferentes archivos que definen distintos tipos de funciones según su uso, fomentando la modularización.
+	
+	\section{Observaciones y mejoras}
+	
+	En cuanto a los sensores laterales se observa un error promedio aproximado de 1 cm del valor deseado mientras que la lectura del sensor central es buena y tiene un error bastante bajo (ya que se detiene el auto justo cuando debería). Para el PID se implementó un \textit{anti-windup} y se consideraron los siguientes valores que fueron ajustados mediante \textbf{prueba y error}:
+	
+	\begin{itemize}
+		\item $K_p = 7.0$
+		\item $K_i = 0.01$
+		\item $K_p = 3.0$
+	\end{itemize}
+	
+	Actualmente se busca mejorar la velocidad y particularmente el giro ya que es un tanto descontrolado mediante el ajuste de velocidades y constantes, además se planea integrar un algoritmo de resolución de laberintos (aunque sea el más simple). Junto con todo esto, queremos realizar una refactorización del código fuente para facilitar la legibilidad.
+	
+\end{document}
