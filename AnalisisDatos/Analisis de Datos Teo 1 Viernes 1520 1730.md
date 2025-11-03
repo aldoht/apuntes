@@ -380,3 +380,65 @@ Un ejemplo de esto es la normalización de un conjunto de datos *antes de* separ
 
 Consultar curso de data science https://drive.google.com/drive/folders/1FTVWhJxuonzamFkv0HjAsT6g6iGba5Kt?usp=drive_link
 
+## 2025-10-24
+
+No linealidad --> Cuando el efecto de una variable sobre otra cambia según el xonctexto o el rango (no hay una única tasa de cambio constante).
+
+Underfitting --> Alta capacidad de generalizacion pero baja precision
+Overfitting --> Perfecto en entrenamiento pero bajo en datos nuevos
+
+**Hay un problema: la vida no es lineal**
+
+### Arboles de decision
+
+Un modelo que no trace una linea, sino que **haga preguntas inteligentes**.
+
+Son modelos de aprendizaje automatico que pueden usarse para regresion y clasificacion, el modelo aprende a dividir los datos en grupos mas homogeneos. A partir de dichas preguntas, el arbol se ramifica hasta formar hojas que contienen la prediccion promedio de cada grupo.
+
+El arbol busca **dividir** los datos de manera que el **error dentro de los grupos sea lo mas pequeño posible usando el MSE**. Prueba distintos puntos de corte en las variables y elige el que reduce mas el MSE total.
+
+Los modelos clasicos (OLS, Ridge, Lasso, Elastic Net), SVM e incluso las NN requieren que las variables esten en la misma escala.
+
+Baja profundidad --> Underfitting
+Profundidad equilibrada --> Resultados precisos
+Sin limite de profundidad --> Overfitting
+
+#### Debilidades
+
+- **Alta varianza**: cambios pequeños en los datos pueden generar un árbol completamente diferente.
+- **Sobreajuste**: si el árbol crece demasiado, memoriza los datos de entrenamiento y pierde la capacidad de generalización.
+
+#### Bootstrap
+
+Es una técnica de **muestreo aleatorio con reemplazo** aplicada a las filas del conjunto de datos. Si se tiene un *dataset* con $n$ observaciones, se crean varias muestras nuevas también con $n$ filas, pero algunas se repiten y otras quedan fuera. Así, en promedio cada muestra incluye alrededor del 63% de los datos originales únicos, generando versiones ligeramente distintas del mismo conjunto.
+
+#### Bagging (Bootstrap Aggregating)
+
+El bagging permite **reducir la varianza** de modelos inestables (especialmente árboles de decisión). Tiene un principio simple fundamental:
+- En lugar de confiar en solo *un modelo*, entrenemos muchos (cada uno con versiones distintas del conjunto) y combinemos sus resultados.
+
+Flujo:
+1. Bootstrap al conjunto
+2. Entrenamiento de un árbol independiente sobre cada muestra bootstrap
+3. Combinación de resultados (promedio o moda)
+
+El resultado es un **modelo más robusto**, más estable y menos propenso al sobreajuste.
+
+A pesar de su efectividad, sigue teniendo un gran problema: **no corrige el sesgo inherente del modelo base**. Es decir, si cada árbol tiende a equivocarse de cierta manera (subestimando o sobreestimando siempre algunos casos, por ejemplo), el promedio de muchos árboles seguirá arrastrando ese error. Además, **se pierde interpretabilidad** al combinar varios árboles.
+
+#### Random Forest
+
+El bosque aleatorio es una evolución directa del bagging, este introduce una **segunda capa de aleatoriedad** además del muestreo de filas.
+- Muestrea filas (como el bagging)
+- Muestrea columnas (variables) en cada división del árbol
+
+Es decir, **cada árbol del bosque ve una versión distinta del dataset y en cada punto donde decide dividir no puede usar todas las variables**, generando árboles menos correlacionados entre sí, lo que mejora la capacidad de generalización y reduce la varianza del conjunto final.
+
+##### Feature Importance
+
+El *random forest* no entrega coeficientes directos, sin embargo, sí puede *estimar* **cuánto contribuye cada variable** a mejorar la capacidad predictiva del modelo.
+
+Cada vez que un árbol hace un *split*, se mide **cuánto reduce el error** o impureza. Para cada variable:
+- Se acumula la mejora que genera en todos los nodos donde fue usada
+- Se promedia sobre todos los árboles del bosque
+- Se normaliza para que las importancias sumen 1
