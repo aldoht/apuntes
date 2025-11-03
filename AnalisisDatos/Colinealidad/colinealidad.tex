@@ -1,0 +1,168 @@
+\documentclass{article}
+\newcommand{\templatepath}{../../LaTeX/ubo-template/}
+\newcommand{\tituloTrabajo}{Colinealidad y desempeño de modelos}
+\usepackage{\templatepath ubo}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tocloft}
+\setlength{\cftbeforesecskip}{0.5em}
+\setlength{\cftbeforesubsecskip}{0.2em}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\itshape}
+\renewcommand{\cftdot}{·}
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftsecpagefont}{\bfseries}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=blue,
+	citecolor=black,
+	bookmarks=true,
+	bookmarksopen=true,
+	bookmarksnumbered=true,
+	pdftitle={\tituloTrabajo},
+	pdfauthor={Aldo Hernández}
+}
+
+\begin{document}
+	% Portada
+	\MakeHeader{Análisis de Datos}{Sección: TEO 1}{Profesor Eliecer Peña Ancavil}{\tituloTrabajo}{3 de noviembre de 2025}
+	\vfill
+	
+	\AuthorRowOne
+	{\CustomAuthor{Aldo Hernández}{aldo.hernandezt@uanl.edu.mx}{Universidad Autónoma de Nuevo León}{San Nicolás de los Garza, Nuevo León, MX}}
+	
+	\newpage
+	
+	% Contenido
+	\section{Introducción}
+	Este trabajo busca comparar y analizar tres modelos distintos entrenados con un conjunto de datos acerca del videojuego \textit{League of Legends} que predigan de forma precisa la cantidad de oro del equipo azul. Se toma como base el análisis realizado con anterioridad sobre el mismo conjunto pero con menos columnas, concretamente sin las columnas \textbf{blueTeamTotalKills} y \textbf{blueTeamTotalDamageToChamps}.
+	
+	Los modelos entrenados fueron un árbol de decisión, un bosque aleatorio y una regresión Lasso. Antes de entrenar los modelos, se tomaron en cuenta las siguientes consideraciones:
+	\begin{itemize}
+		\item La mejor profundidad (relativamente) del árbol se encontró mediante \textit{GridSearchCV}, dando como resultado una profundidad de 8 niveles.
+		\item Los datos fueron escalados antes de entrenar el modelo de regresión Lasso.
+		\item Para el bosque aleatorio se usaron 300 árboles con profundidad máxima de 10 niveles, con un mínimo de 5 muestras para dividir y un mínimo de 4 hojas por nodo.
+	\end{itemize}
+	
+	\section{Comparación de modelos}
+	En la figura \ref{fig:metrics} se observa el rendimiento de cada modelo en distintas métricas. En la subfigura \ref{subfig:r2} se puede notar un valor cercano a $0.9$ para $R^2$ en los tres modelos tanto en el conjunto de entrenamiento como de prueba; por otro lado, en las subfiguras \ref{subfig:mse}, \ref{subfig:rmse} y \ref{subfig:mae} se puede ver un mismo comportamiento: los tres modelos logran un desempeño parecido en el conjunto de entrenamiento pero los modelos basados en árboles aumentan su error significativamente en los conjuntos de prueba, indicando un posible pequeño sobreajuste en dichos modelos (ligeramente mayor en el árbol de regresión).
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_r2.png}
+			\caption{Valor de la métrica $R^2$ en cada conjunto de datos.}
+			\label{subfig:r2}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_mse.png}
+			\caption{Valor de la métrica MSE en cada conjunto de datos.}
+			\label{subfig:mse}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_rmse.png}
+			\caption{Valor de la métrica RMSE en cada conjunto de datos.}
+			\label{subfig:rmse}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_mae.png}
+			\caption{Valor de la métrica MAE en cada conjunto de datos.}
+			\label{subfig:mae}
+		\end{subfigure}
+		\hfill
+		
+		\caption{Valor de las métricas de desempeño en los tres modelos en los datos de entrenamiento y validación.}
+		\label{fig:metrics}
+	\end{figure}
+	
+	\section{Análisis de modelos}
+	Además de las métricas, se puede rescatar más información valiosa de los tres modelos que pueda mostrar qué tanto impacto tiene una variable en la predicción final; en el caso de los modelos basados en árboles existe la \textit{importancia} de las variables, mientras que en la regresión están los valores de los \textit{coeficientes}.
+	
+	\subsection{Importancia de variables}
+	Observando la figura \ref{fig:importance} se puede notar rápidamente un gran problema: más de la mitad de las variables han resultado insignificantes para la predicción final. Sin embargo, esto no puede ser posible ya que \textbf{todas las variables otorgan oro al equipo azul}, por lo que su impacto no puede ser prácticamente cero.
+	
+	Se puede notar que tanto en el árbol de decisión (subfigura \ref{subfig:importance_tree}) como en el bosque aleatorio (subfigura \ref{subfig:importance_forest}) las variables que se han decidido incluir justamente en este trabajo se encuentran en los primeros puestos. Estas dos variables han alterado completamente la capacidad explicativa de los modelos: ahora no es posible saber el verdadero efecto individual de cada variable en la cantidad de oro del equipo azul.
+	
+	Es importante mencionar que el bosque aleatorio consiguió evitar en cierta medida este sesgo inducido debido a su naturaleza de generar árboles menos correlacionados entre sí, mejorando la capacidad de generalización.
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_importance-tree.png}
+			\caption{Importancia de las variables en el árbol de decisión.}
+			\label{subfig:importance_tree}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_importance-forest.png}
+			\caption{Importancia de las variables en el bosque aleatorio.}
+			\label{subfig:importance_forest}
+		\end{subfigure}
+		\hfill
+		
+		\caption{Importancia de las variables en los modelos basados en árboles.}
+		\label{fig:importance}
+	\end{figure}
+	
+	\subsection{Coeficientes Lasso}
+	En la figura \ref{fig:coefs_lasso} podemos observar que pasa lo mismo en el modelo de regresión Lasso que en los otros dos modelos: determinadas variables \textbf{toman el control} de la predicción final. Sin embargo, este modelo en particular logra una mejor generalización que los otros dos debido a su capacidad de \textit{suavizar} los coeficientes, evitando en cierta medida el control absoluto de una sola variable.
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.45\linewidth]{./imgs/mine_coefs-lasso.png}
+		\caption{Coeficientes de la regresión Lasso.}
+		\label{fig:coefs_lasso}
+	\end{figure}
+	
+	\section{Interpretación de resultados}
+	A pesar de que estos tres modelos ofrecen en cierta parte mejores capacidades predictivas de acuerdo a las métricas, pierden casi toda su explicabilidad debido a que no se sabe el impacto de cada variable en la variable objetivo.
+	
+	Para encontrar la razón detrás de este problema, es fundamental interpretar la figura \ref{fig:collineality}. En la matriz de correlación (subfigura \ref{subfig:corr}) se puede notar que ambas variables "nuevas" tienen una \textbf{alta correlación} con otras variables, lo cual tiene sentido bajo el funcionamiento del juego ya que, por ejemplo, conseguir \textit{kills} implica hacer más daño a campeones enemigos.
+	
+	Sin embargo, ese no es el único problema. Observando la subfigura \ref{subfig:vif} en la que se encuentra el VIF de cada variable podemos notar algo interesante: \textbf{el verdadero problema es la variable \textit{blueTeamTotalKills}} y no particularmente ambas como se especulaba al inicio, esto tiene sentido ya que esta variable induce una correlación muy alta con la otra variable añadida \textbf{blueTeamTotalDamageToChamps}, siendo que esta última no tiene una correlación significativamente alta con otras variables; además, se puede observar que otra variable da indicios de \textit{multicolinealidad}: \textbf{blueTeamXp}.
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}[h]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_corr-matrix.png}
+			\caption{Matriz de correlación.}
+			\label{subfig:corr}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[a]{0.45\linewidth}
+			\centering
+			\includegraphics[width=\linewidth]{./imgs/mine_vif.png}
+			\caption{Factor de inflación en la varianza.}
+			\label{subfig:vif}
+		\end{subfigure}
+		\hfill
+		
+		\caption{Indicadores de colinealidad y multicolinealidad.}
+		\label{fig:collineality}
+	\end{figure}
+	
+	Todas estas relaciones comprobadas analíticamente tienen sentido dentro del juego:
+	\begin{itemize}
+		\item Más \textit{kills} te da más libertad en el mapa del juego, otorgando mayor control sobre el equipo enemigo y facilitando la toma de decisiones (implicando conseguir más objetivos como dragones, más experiencia, destruir más torres, etcétera).
+		\item Se puede obtener más experiencia (XP) matando esbirros, destruyendo torres y consiguiendo objetivos.
+		\item El daño a campeones enemigos no está tan fuertemente correlacionado con las demás variables ya que su valor no tiene un impacto garantizado en ellas (por ejemplo, el tener alto daño no garantiza que consigas más torres o mates más esbirros).
+	\end{itemize}
+	
+	Finalmente, podemos concluir que estos tres modelos tienen un mejor desempeño predictivo que los anteriores debido a que prácticamente \textbf{hacen trampa} gracias a la multicolinealidad existente en este conjunto de datos: tienen variables que contienen información de otras, por lo que le estamos diciendo a los modelos \textit{en qué se deben fijar}.
+	
+	Una solución a este problema sería \textbf{eliminar las dos columnas} \textit{blueTeamTotalKills} y \textit{blueTeamXp} del conjunto de datos, esto no representa problema alguno porque gran parte de la información que proporcionan se encuentra distribuida en las demás variables; esta eliminación nos permitiría conocer el verdadero impacto de cada una de las demás variables en la cantidad de oro total del equipo azul.
+	
+\end{document}
