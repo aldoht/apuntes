@@ -739,3 +739,72 @@ Estas técnicas se pueden combinar, como L2 con Dropout --> Evita que cualquier 
 	1. Calcular gradientes $\frac{\partial L}{\partial W}$ usando la regla de la cadena.
 4. Actualización de parámetros
 	1. $W := W - \alpha \frac{\partial L}{\partial W}$ (con optimizador ADAM)
+
+
+## 2025-11-04 (recuperado del 31 de oct)
+
+??? pendiente
+
+## 2025-11-07
+
+### Definiciones
+
+LLM (Large Language Model) --> Red neuronal de gran tamaño entrenada para **predecir la siguiente palabra** en un contexto.
+
+Token --> **Unidad mínima de texto** procesada por el modelo (palabra, subpalabra o símbolo)
+
+Parámetros de control --> Temperatura (aleatoriedad, mostrar resultados menos probables), top-p (muestreo, entrega información con esa probabilidad), max_new_tokens (longitud)
+
+CPU: Cálculos en serie
+GPU: Cálculos a nivel de matrices (recomendado para imágenes)
+TPU: Cálculos a nivel de tensores (recomendado para deep learning)
+### Limitaciones
+
+Hay un límite para la entrada de información en un LLM llamado **ventana de contexto** que se mide en *tokens*. La ventana incluye a la entrada y la salida (al menos en GPT). La ventana usa *respuestas anteriores junto con el prompt actual*.
+
+### RAG
+
+La **generación aumentada por recuperación (RAG)** es el proceso de optimización de la salida de un modelo de lenguaje de gran tamaño, de modo que haga referencia a una base de conocimientos autorizada fuera de los orígenes de datos de entrenamiento antes de generar una respuesta (da contexto, uso de bases de datos vectoriales).
+
+### Flujo de trabajo
+
+texto --> tokens --> modelo pre-entrenado --> generación de salida (tokens, params) --> salida
+
+encoder --> pasa de texto (input) a vectores (tokens, input vectorizado)
+decoder --> pasa de vectores (output vectorizado) a texto (output)
+
+El LLM se vuelve autogenerativo al predecir palabras según las palabras anteriores.
+
+### Prompts y métrica
+
+Zero-shot --> EL modelo recibe sólo la instrucción.
+Few-shot --> Incluye ejemplos previos que guían la tarea.
+
+Métrica ROUGE --> Compara solapamiento de n-gramas entre el texto generado y el de referencia.
+
+### Fine-tuning
+
+El tradicional ajusta **todos los parámetros**, por lo que requiere muchos recursos. Otras técnicas como LoRA y PEFT sólo ajustan matrices pequeñas (low-rank), resultando en un entrenamiento rápido y pequeño.
+
+### Ética y seguridad
+
+Problemas comunes:
+- Fugas de datos personales (PII)
+- Respuestas sesgadas o inapropiadas
+- Falta de transparencia en el origen del modelo
+
+Buenas prácticas:
+- Monitorear y filtrar prompts
+- Evitar uso de datos sensibles
+- Documentar el proceso de ajuste y uso
+
+### Síntesis
+
+| Tema               | Habilidad adquirida             | Herramientas             |
+| ------------------ | ------------------------------- | ------------------------ |
+| Inferencia         | Usar modelos preentrenados      | transformers             |
+| Evaluación         | Medir calidad de texto          | evaluate, ROUGE          |
+| Prompt Engineering | Diseñar instrucciones efectivas | Plantillas zero/few-shot |
+| Fine-tuning        | Ajuste eficiente de modelos     | peft, LoRA               |
+| Despliegue seguro  | Aplicar filtros y UI            | gradio, regex            |
+
