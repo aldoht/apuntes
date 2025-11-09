@@ -442,3 +442,156 @@ Cada vez que un árbol hace un *split*, se mide **cuánto reduce el error** o im
 - Se acumula la mejora que genera en todos los nodos donde fue usada
 - Se promedia sobre todos los árboles del bosque
 - Se normaliza para que las importancias sumen 1
+
+## 2025-11-07
+
+Problema: no distinguimos patrones claros en los datos, incluso no es posible visualizarlos porque tienen una dimensionalidad muy grande.
+
+### Principal Component Analysis (PCA)
+
+El PCA permite "resumir" la información más importante de muchas variables en solo dos o tres dimensiones para ser graficados y analizados visualmente, revelando relaciones ocultas.
+
+Se puede imaginar como mirar un paisaje desde arriba: no puedes ver cada árbol pero entiendes la forma general del bosque.
+
+Esta técnica nos permite combinar las variables en "componentes" más manejables **sin perder tendencias**.
+
+Busca **transformar** un conjunto de variables correlacionadas en un nuevo conjunto de variables no correlacionadas llamadas componentes principales:
+- La primera componente explica la máxima varianza posible de los datos.
+- La segunda componente explica la máxima varianza restante, así sucesivamente.
+- Todas las componentes son **ortogonales entre sí**.
+
+#### Fundamento matemático
+
+El PCA se basa en analizar **cómo varían conjuntamente las variables**, lo que se obtiene de la *matriz de covarianzas* $S$, en donde cada elemento $s_{jk}$ mide la covarianza entre las variables $j$ y $k$ (se pueden usar las correlaciones en lugar de las covarianzas).
+
+Su objetivo es encontrar un conjunto de vectores $\mathbf{w}$ tales que la proyección de los datos sobre esas direcciones tengan **la mayor varianza posible**. La proyección sobre un vector cualquiera $w$ se expresa como
+$$
+t = Zw
+$$
+donde $t$ es el vector de coordenadas de las observaciones proyectadas, $Z$ es la matriz de datos estandarizados y $w$ es el vector de pesos o **autovector** que definirá la dirección de la componente. La varianza de $t$ está definida por $w^TSw$ y el PCA busca el vector $w$ que maximiza la varianza, sujeto a que $w$ tenga longitud unitaria para que solo cambie la dirección y no la escala.
+
+Se resuelve usando *multiplicadores de Lagrange*, el sistema resultante es la ecuación característica
+$$
+S\mathbf{w} = \lambda \mathbf{w}
+$$
+Cada valor propio $\lambda_i$ representa la varianza explicada por la correspondiente componente principal. Los componentes principales se obtienen haciendo $Z\mathbf{w}_i$.
+
+**La varianza total explicada por las $p$ componentes es la suma de los valores propios**. Esto permite decidir cuántas componentes conservar.
+
+Si se conservan solo $k$ componentes, se puede **aproximar** los datos mediante
+$$
+\hat{Z} = T_kW_k^T
+$$
+**Esta ecuación formaliza la idea de "resumir los datos" en un espacio de menor dimensión**.
+
+#### Resultados
+
+Después de todo el proceso, podemos saber qué tanto explica de la varianza cada componente principal: una o varias combinaciones de características que definen claramente los grupos existentes en los datos.
+
+#### ¿El PCA se usa en cosas sociales?
+
+Pueden manipularse los datos con cualquier método de clustering. Ver en [[#Conclusiones]].
+
+### Otras técnicas
+
+El PCA busca *proyecciones lineales* de los datos para explicar la varianza. Sin embargo, cuando la información es **no lineal**, el PCA podría no capturar adecuadamente dicha geometría. Por eso surgen otras técnicas más modernas.
+
+#### t-SNE
+
+El método **t-distributed Stochastic Neighbor Embedding** busca preservar las **relaciones locales** entre los puntos: si dos observaciones son "vecinas" en el espacio original, deberían seguir siéndolo en la representación 2D o 3D.
+
+A diferencia del PCA que busca direcciones globales de varianza, el t-SNE se enfoca en **quién está cerca de quién**.
+
+1. Cálculo de probabilidades de vecindad en el espacio original
+2. Cálculo de probabilidades en el espacio reducido
+3. Minimización de la divergencia KL
+
+#### UMAP
+
+La técnica **Uniform Manifold Approximation and Projection** parte de la teoría de manifold learning y topología algebraica, buscando una representación que preserver tanto la **estructura local como la global** de los datos. Este método usa una formulación geométrica basada en grafos.
+
+1. Construcción de un grafo de vecinos
+	- Se crea un grafo ponderado donde cada nodo es un punto del dataset, y las aristas se ponderan según la cercanía (distancia euclidiana o coseno).
+2. Proyección al espacio reducido
+	- Se busca una nueva representación que preserve las relaciones del grafo, para ello se optimiza una función de costo cruzada (similar a una divergencia de entropía binaria).
+
+### Clustering (técnicas de aprendizaje no supervisado)
+
+Una vez que se redujo la dimensionalidad, ¿es posible identificar grupos o patrones dentro de estos datos sin conocer sus etiquetas?
+
+Ahora no queremos predecir una variable objetivo, sino **descubrir agrupamientos naturales** que reflejen similitudes entre las observaciones.
+
+La proyección visual de la reducción de dimensionalidad nos muestra la **forma general**, pero **no dice cuántos grupos hay, ni dónde terminan unos y empiezan otros**.
+
+#### Definición
+
+Es el proceso de dividir un conjunto de datos en grupos de manera que:
+- Los elementos dentro de un mismo grupo sean similares entre sí, y
+- Los elementos de distintos grupos sean diferentes.
+
+El algoritmo debe descubrir por sí mismo la estructura subyacente porque **no hay etiquetas conocidas**.
+
+#### Clasificación
+
+Se dividen según cómo determinan el número de clusters:
+- Clusters definidos por el usuario
+- Clusters determinados automáticamente por el algoritmo
+
+##### Clusters definidos por el usuario
+
+Su objetivo es minimizar la inercia (suma de distancias cuadradas de los puntos a su centroide).
+
+- K-means
+- MiniBatchKMeans
+	- Versión rápida para datos grandes.
+- BisectingKMeans
+	- Versión jerárquica que divide usando k-means
+
+Se suele usar el **método del codo** para elegir el número de clusters: se grafica la invercia frente a los valores de $k$. El "codo" representa el punto donde agregar más clusters no reduce significativamente la inercia.
+
+###### Métodos que no usan inercia
+
+Utilizan otros criterios para formar los clusters; el valor de *k* se usa solo para cortar o limitar el proceso, pero no como parámetro del cálculo de inercia.
+
+- Agglomerative Clustering (jerárquico ascendente)
+	- Une puntos según su similitud. El número de clusters define hasta dónde corto el dendrograma.
+- Spectral Clustering
+	- Usa el grafo de similitudes y analiza sus vectores propios para separar grupos.
+- Gaussian Mixture Models (GMM)
+	- Ajusta *k* distribuciones gaussianas y asigna probabilísticamente cada punto a una de ellas.
+
+##### Clusters definidos automáticamente
+
+Descubren el número de grupos a partir de la forma o densidad de los datos.
+
+- DBSCAN
+	- Agrupa puntos densamente conectados usando parámetros de distancia (eps) y mínimo de puntos (min_samples)
+- OPTICS
+	- Similar a DBSCAN pero detecta clusters con distintas densidades.
+- HDBSCAN
+	- Variante jerárquica de DBSCAN que encuentra automáticamente los grupos estables.
+- MeanShift
+	- Encuentra picos en la densidad de los datos (modos del kernel).
+- Affinity Propagation
+	- Identifica representativos (exemplars) sin decirle cuántos clusters habrán.
+
+No hay codo, ni inercia, ni *k* predefinido.
+
+#### Métricas
+
+Se basan en medir **qué tan buena fue la partición**. La idea general es evaluar qué tan compactos son los grupos y qué tan separados están entre sí.
+
+- Silhouette Score
+	- Evaúa la cohesión y separación de los clusters.
+		- Cerca de 1: bien asignado
+		- Cerca de 0: entre dos clusters
+		- Negativo: probablemente mal asignado
+- Davies-Bouldin Index (DBI)
+	- Mide la razón entre la dispersión interna y la distancia entre clusters.
+		- Mientras más bajo, más comptactos y más separados son los clusters
+- Calinski-Harabasz Index (CH)
+	- También llamado *Variance Ratio Criterion*, valora particiones con clusters muy distintos entre sí y homogéneos internamente.
+
+### Conclusiones
+
+El *clustering* puede decir lo que queramos que diga. Su utilidad se ve en campos relacionados a la segmentación, su éxito depende de elegir un algoritmo adecuado, un buen preprocesamiento e **interpretar los resultados con cuidado**.
