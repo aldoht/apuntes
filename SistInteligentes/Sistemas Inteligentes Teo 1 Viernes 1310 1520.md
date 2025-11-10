@@ -743,7 +743,111 @@ Estas técnicas se pueden combinar, como L2 con Dropout --> Evita que cualquier 
 
 ## 2025-11-04 (recuperado del 31 de oct)
 
-??? pendiente
+Corpus: Colección grande de texto usado para entrenar y analizar modelos de lenguaje.
+
+### Modelos N-gramas ('80 - '90)
+
+Los **n-gramas** son secuencias de *n* palabras consecutivas para **predecir probabilidades** basadas en frecuencias.
+
+Unigramas -> Palabras individuales ("el", "gato", "está")
+Bigramas -> Pares de palabras ("el gato")
+Trigramas -> Tríos de palabras ("el gato está")
+
+Su principio es: **la probabilidad depende de las n-1 palabras anteriores**.
+
+La probabilidad de un trigrama está dada por el conteo de las 3 palabras juntas dividido por el conteo de las primeras 2 palabras.
+
+#### Limitaciones
+
+- Curse of dimensionality
+	- Crecimiento exponencial al aumentar $n$.
+- Data Sparsity
+	- Muchas secuencias nunca aparecen.
+- Sin semántica
+	- Palabras similares son independientes.
+- Contexto limitado
+	- Sin dependencias largas.
+
+#### Suavizado
+
+- Add-one Smoothing
+	- Agrega una cuenta mínima a todas las secuencias.
+- Good-Turing
+	- Reditribuir probabilidad basada en frecuencias.
+- Back-off Models
+	- Usar $n$-gramas más cortos cuando faltan datos.
+
+### Modelos Neuronales (2000s)
+
+Primera red neuronal para modelado de lenguaje -> Bengio et al. (2003)
+
+- Representaciones distribuidas
+	- Cada palabra como vector denso aprendido.
+		- Hipótesis distribucional: palabras en contextos similares tienen significados similares.
+		- Vector denso: 50-300 dimensiones de valores continuos.
+		- Ventaja: compartir fuerza estadística entre palabras relacionadas.
+- Generalización
+	- Palabras similares -> Vectores similares -> Predicciones compartidas.
+
+### RNNs y LSTMs (2010s)
+
+Redes recurrentes procesan **secuencias** manteniendo estado oculto.
+El **LSTM & GRU** permiten un mejor manejo de dependencias largas con puertas.
+Con **Seq2Seq+Atencion** se logra una traducción y generación con mecanismos de atención.
+
+### Embeddings
+
+Proceso de transformar una palabra en un vector (también llamado vectorización).
+
+**Word embeddings** --> Vectores que capturan significado semántico.
+**Proximidad semántica** --> rey - hombre + mujer = reina.
+**Aprendizaje automático** --> Se aprenden durante el entrenamiento del modelo.
+
+#### Arquitectura Word2Vec
+
+CBOW -> Predice la palabra central dado el contexto.
+Skip-gram -> Predice el contexto dada la palabra central.
+Eficiencia: Negative sampling y hierarchical softmax.
+
+### ELMo: El contexto importa
+
+Embeddings from Language Models: LSTM bidireccionales profundos -> Peters et al. 2018
+
+Con **vectores dinámicos** se logra tener un **vector distinto para cada contexto** de uso.
+
+### Arquitectura Transformer (2017)
+
+EL PAPER MAS IMPORTANTE DE LA HISTORIA ACTUAL DIOS MIO: "Attention Is All You Need", Vaswani et al.
+
+Elimina las RNN y LSTM usando **solo auto-atención**. Además, procesa toda la secuencia simultáneamente.
+
+2 componentes clave: encoder (6 capas) que recibe texto y lo codifica a vectores, y decoder (6 capas) que pasa vectores a texto.
+
+Autoalimentación genera alucinaciones.
+
+Mecanismo: auto-atención -> cada palabra atiende a todas las demás palabras: relaciones a larga distancia sin degradación (captura dependencias).
+
+Attention(Query, Key, Value) = softmax(QueryKey^T / sqrt(d_k)) 
+
+#### Multi-Head Attention
+
+- Múltiples cabezas
+	- 8-12 en paralelo con distintas proyecciones QKV.
+- Aspectos distintos
+	- Cada cabeza puede capturar relaciones diferentes.
+- Combinación
+	- Salidas concatenadas y proyectadas linealmente.
+
+#### Ventajas
+
+- Paralelismo
+	- Entrenamiento más rápido que RNN secuenciales.
+- Dependencias largas
+	- Conexión directa entre palabras.
+- Escalabilidad
+	- Modelos gigantes.
+- Calidad superior
+	- State-of-art en NLP.
 
 ## 2025-11-07
 
