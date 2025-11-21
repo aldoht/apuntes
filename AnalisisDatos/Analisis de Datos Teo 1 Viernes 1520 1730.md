@@ -595,3 +595,30 @@ Se basan en medir **qué tan buena fue la partición**. La idea general es evalu
 ### Conclusiones
 
 El *clustering* puede decir lo que queramos que diga. Su utilidad se ve en campos relacionados a la segmentación, su éxito depende de elegir un algoritmo adecuado, un buen preprocesamiento e **interpretar los resultados con cuidado**.
+
+## 2025-11-21
+
+Preparación de datos
+
+- Detección y tratamiento de valores nulos
+	- Reemplazo por media, mediana o moda.
+	- Multiple Imputation by Chained Equations (MICE) con modelos de regresión o clasificación.
+- Identificación y manejo de valores atípicos
+	- Rango intercuartílico (IQR) o regla de $\pm 3\sigma$ (z-score).
+	- DBScan, Isolation Forest o Autoencoders.
+- Codificación de variables categóricas
+	- One-Hot y Label Encoding.
+	- Target Encoding (y su smoothed version), Frequency Encoding, Embeddings.
+- Maldición de la dimensionalidad
+	- Criterio del "ojo" y tipos de correlación (Pearson, Chi cuadrado, ANOVA).
+	- Feature Importances con métodos basados en modelos de regresión o clasificación.
+
+Modelos modernos
+
+- Random Forest Regressor
+- Extra Trees Regressor
+- AdaBoost Regressor
+- Gradient Boosting Regressor
+- XGBoost
+- LightGBM
+- CatBoost
